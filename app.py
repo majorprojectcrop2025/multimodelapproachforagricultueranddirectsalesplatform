@@ -531,9 +531,9 @@ def disease_detection():
                 try:
                     confidence_threshold = 0.60
                     result = ensemble_predict(filepath, confidence_threshold)
-                except Exception as e:
-                    print(f"Error during disease prediction: {e}")
-                    error_message = "An unexpected error occurred during disease prediction."
+                    except Exception as e:
+                        print(f"Error during disease prediction: {e}")
+                        error_message = "An unexpected error occurred during disease prediction."
             else:
                 error_message = "Allowed image types are png, jpg, jpeg, gif."
 
@@ -1189,7 +1189,7 @@ def predict_lemon_disease(image_path, confidence_threshold=0.80):
         is_diseased = False
         is_healthy = False
     else:
-        is_healthy = "healthy" in predicted_class.lower()
+    is_healthy = "healthy" in predicted_class.lower()
         is_diseased = not is_healthy
         if is_diseased:
             result_message = "It is diseased"
@@ -1236,7 +1236,7 @@ def predict_potato_disease(image_path, confidence_threshold=0.80):
         is_diseased = False
         is_healthy = False
     else:
-        is_healthy = "healthy" in predicted_class.lower()
+    is_healthy = "healthy" in predicted_class.lower()
         is_diseased = not is_healthy
         if is_diseased:
             result_message = "It is diseased"
@@ -1283,7 +1283,7 @@ def predict_rice_disease(image_path, confidence_threshold=0.80):
         is_diseased = False
         is_healthy = False
     else:
-        is_healthy = "healthy" in predicted_class.lower()
+    is_healthy = "healthy" in predicted_class.lower()
         is_diseased = not is_healthy
         if is_diseased:
             result_message = "It is diseased"
@@ -1377,7 +1377,7 @@ def predict_cucumber_disease(image_path, confidence_threshold=0.80):
         is_diseased = False
         is_healthy = False
     else:
-        is_healthy = "healthy" in predicted_class.lower()
+    is_healthy = "healthy" in predicted_class.lower()
         is_diseased = not is_healthy
         if is_diseased:
             result_message = "It is diseased"
