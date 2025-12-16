@@ -21,3 +21,9 @@ datasets/
 .vscode/
 .idea/
 *.log
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+site.db
