@@ -1,0 +1,51 @@
+FarmerID,FarmerName,MobileNumber,EmailID,FarmAddress,CropName,CropVariety,QuantityAvailable,PricePerUnit,CropQuality,CropHealthCheck,DeliveryRangeKM
+F001,Geetha R,9655728094,farmer1@gmail.com,"Gulbarga, Karnataka",Tomato,Regular,189,45,"Organic, Fresh",Fresh,17
+F002,Sita Rani,9762500920,farmer2@gmail.com,"Shimoga, Karnataka",Carrot,Orange,145,48,"Organic, Fresh",Disease-free,19
+F003,Geetha R,9731476680,farmer3@gmail.com,"Gulbarga, Karnataka",Onion,White,61,42,Fresh,Pesticide-free,29
+F004,Sita Rani,9709101006,farmer4@gmail.com,"Bidar, Karnataka",Onion,White,178,32,"Organic, Fresh",Fresh,18
+F005,Priya Sharma,9796800048,farmer5@gmail.com,"Bidar, Karnataka",Onion,White,117,42,Organic,Pesticide-free,27
+F006,Manoj Gowda,9724839658,farmer6@gmail.com,"Bidar, Karnataka",Carrot,Orange,97,52,Organic,Fresh,18
+F007,Manoj Gowda,9608364143,farmer7@gmail.com,"Bangalore, Karnataka",Onion,White,167,33,Organic,Pesticide-free,10
+F008,Nandini,9723771188,farmer8@gmail.com,"Karwar, Karnataka",Potato,Kashmir,132,43,Fresh,Disease-free,28
+F009,Nandini,9780246683,farmer9@gmail.com,"Shimoga, Karnataka",Onion,Red,199,31,Fresh,Pesticide-free,17
+F010,Ramesh Kumar,9906454465,farmer10@gmail.com,"Tumkur, Karnataka",Tomato,Cherry,56,49,Fresh,Fresh,13
+F011,Divya,9787520829,farmer11@gmail.com,"Udupi, Karnataka",Tomato,Cherry,134,53,"Organic, Fresh",Fresh,14
+F012,Raghavendra,9986169100,farmer12@gmail.com,"Mysore, Karnataka",Tomato,Cherry,192,41,Organic,Fresh,24
+F013,Ajay Singh,9800649138,farmer13@gmail.com,"Hubli, Karnataka",Lettuce,Green,165,40,Fresh,Pesticide-free,25
+F014,Sita Rani,9600784992,farmer14@gmail.com,"Bangalore, Karnataka",Potato,Red,149,31,"Organic, Fresh",Disease-free,25
+F015,Ramesh Kumar,9812955622,farmer15@gmail.com,"Karwar, Karnataka",Lettuce,Green,67,44,Fresh,Fresh,25
+F016,Manoj Gowda,9814779974,farmer16@gmail.com,"Bidar, Karnataka",Tomato,Regular,80,48,Fresh,Pesticide-free,12
+F017,Vikram Das,9991973472,farmer17@gmail.com,"Hassan, Karnataka",Potato,Kashmir,153,38,Organic,Pesticide-free,16
+F018,Suresh,9769154972,farmer18@gmail.com,"Karwar, Karnataka",Lettuce,Green,155,47,Organic,Fresh,24
+F019,Vikram Das,9850184115,farmer19@gmail.com,"Tumkur, Karnataka",Carrot,Purple,95,55,Organic,Disease-free,15
+F020,Raghavendra,9924236009,farmer20@gmail.com,"Belgaum, Karnataka",Onion,White,107,31,Organic,Disease-free,24
+F021,Raghavendra,9661555697,farmer21@gmail.com,"Karwar, Karnataka",Potato,Red,169,34,Fresh,Disease-free,13
+F022,Geetha R,9952881003,farmer22@gmail.com,"Belgaum, Karnataka",Potato,Red,74,46,Fresh,Disease-free,19
+F023,Ashok,9780958519,farmer23@gmail.com,"Udupi, Karnataka",Lettuce,Green,167,45,Organic,Fresh,30
+F024,Geetha R,9805800902,farmer24@gmail.com,"Shimoga, Karnataka",Carrot,Purple,187,40,Fresh,Fresh,24
+F025,Kiran Kumar,9722587104,farmer25@gmail.com,"Bidar, Karnataka",Lettuce,Green,172,50,"Organic, Fresh",Fresh,19
+F026,Raghavendra,9853937225,farmer26@gmail.com,"Davangere, Karnataka",Onion,White,140,51,Fresh,Pesticide-free,15
+F027,Ramesh Kumar,9882221979,farmer27@gmail.com,"Gulbarga, Karnataka",Lettuce,Green,165,50,Organic,Fresh,30
+F028,Ashok,9912264016,farmer28@gmail.com,"Mandya, Karnataka",Tomato,Regular,130,52,Fresh,Fresh,22
+F029,Kiran Kumar,9879123698,farmer29@gmail.com,"Bangalore, Karnataka",Carrot,Orange,158,48,Fresh,Pesticide-free,12
+F030,Lakshmi Devi,9845226635,farmer30@gmail.com,"Mandya, Karnataka",Tomato,Regular,147,38,"Organic, Fresh",Fresh,22
+F031,Priya Sharma,9726699413,farmer31@gmail.com,"Belgaum, Karnataka",Lettuce,Iceberg,171,49,Organic,Disease-free,25
+F032,Vikram Das,9683973055,farmer32@gmail.com,"Belgaum, Karnataka",Lettuce,Iceberg,199,48,Fresh,Disease-free,27
+F033,Sita Rani,9989144745,farmer33@gmail.com,"Bellary, Karnataka",Carrot,Orange,144,53,Fresh,Pesticide-free,10
+F034,Kiran Kumar,9795053719,farmer34@gmail.com,"Davangere, Karnataka",Onion,White,135,40,"Organic, Fresh",Pesticide-free,19
+F035,Divya,9963535561,farmer35@gmail.com,"Shimoga, Karnataka",Onion,Red,116,47,"Organic, Fresh",Disease-free,15
+F036,Priya Sharma,9659334610,farmer36@gmail.com,"Hubli, Karnataka",Potato,Red,72,58,Organic,Fresh,20
+F037,Kiran Kumar,9710330884,farmer37@gmail.com,"Belgaum, Karnataka",Potato,Red,147,35,Organic,Fresh,17
+F038,Ashok,9814264962,farmer38@gmail.com,"Tumkur, Karnataka",Lettuce,Green,124,52,Organic,Disease-free,28
+F039,Priya Sharma,9997842908,farmer39@gmail.com,"Belgaum, Karnataka",Carrot,Orange,159,32,Fresh,Fresh,25
+F040,Ananya Rao,9637136333,farmer40@gmail.com,"Davangere, Karnataka",Tomato,Regular,111,60,"Organic, Fresh",Fresh,27
+F041,Ashok,9743721786,farmer41@gmail.com,"Davangere, Karnataka",Onion,Red,52,60,Fresh,Fresh,14
+F042,Divya,9945147916,farmer42@gmail.com,"Mangalore, Karnataka",Lettuce,Iceberg,61,31,"Organic, Fresh",Pesticide-free,19
+F043,Raghavendra,9992954526,farmer43@gmail.com,"Bidar, Karnataka",Tomato,Regular,98,40,"Organic, Fresh",Disease-free,15
+F044,Manoj Gowda,9820556600,farmer44@gmail.com,"Bidar, Karnataka",Lettuce,Green,183,56,Organic,Fresh,13
+F045,Raghavendra,9657180526,farmer45@gmail.com,"Tumkur, Karnataka",Potato,Kashmir,191,31,"Organic, Fresh",Fresh,15
+F046,Ramesh Kumar,9786260965,farmer46@gmail.com,"Tumkur, Karnataka",Carrot,Orange,151,57,Fresh,Pesticide-free,21
+F047,Divya,9718337233,farmer47@gmail.com,"Mangalore, Karnataka",Lettuce,Iceberg,177,53,"Organic, Fresh",Pesticide-free,29
+F048,Raghavendra,9656679296,farmer48@gmail.com,"Hassan, Karnataka",Lettuce,Green,103,39,Organic,Fresh,18
+F049,Sita Rani,9836181707,farmer49@gmail.com,"Udupi, Karnataka",Carrot,Purple,189,39,Fresh,Fresh,12
+F050,Manoj Gowda,9985398051,farmer50@gmail.com,"Belgaum, Karnataka",Carrot,Orange,138,37,Organic,Fresh,25

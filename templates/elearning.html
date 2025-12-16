@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Learning for Farmers - AgriTech Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green-700: #2e7d32;
+            --green-600: #388e3c;
+            --green-500: #4caf50;
+            --gray-900: #1f2933;
+            --gray-700: #4a5568;
+            --gray-600: #718096;
+            --gray-200: #e2e8f0;
+            --card-radius: 18px;
+            --shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e0f7fa 0%, #e8f5e9 100%);
+            min-height: 100vh;
+            color: var(--gray-900);
+            line-height: 1.7;
+            margin: 0;
+            padding: 32px 16px;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1180px;
+            margin: 0 auto 48px auto;
+            background: transparent;
+            padding: 0 0 36px 0;
+            border-radius: 0;
+            box-shadow: none;
+            border: none;
+        }
+
+        .hero-card {
+            background: #ffffff;
+            padding: 20px 26px;
+            border-radius: 22px;
+            box-shadow: var(--shadow);
+            border: 1px solid #f3f6f9;
+            margin-bottom: 22px;
+        }
+
+        h1 {
+            color: var(--green-700);
+            text-align: center;
+            margin-bottom: 32px;
+            font-size: 2.4rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        h2 {
+            color: var(--green-600);
+            font-size: 1.6rem;
+            margin: 32px 0 18px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eef4f9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3 {
+            color: var(--green-500);
+            font-size: 1.2rem;
+            margin: 22px 0 14px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        p, ul {
+            font-size: 0.98rem;
+            color: var(--gray-700);
+            margin-bottom: 14px;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 10px 0 4px 0;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 22px;
+            color: var(--gray-700);
+        }
+
+        ul li::before {
+            content: "\f061";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            color: var(--green-500);
+            position: absolute;
+            left: 0;
+            top: 2px;
+            font-size: 0.8rem;
+        }
+
+        .section-card {
+            background: #ffffff;
+            padding: 22px 20px;
+            border-radius: var(--card-radius);
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
+            margin-bottom: 24px;
+            border: 1px solid #eef2f7;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        .video-card {
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            border: 1px solid #eef2f7;
+        }
+
+        .video-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            background: #f5f7fb;
+            border-bottom: 1px solid #eef2f7;
+        }
+
+        .video-info {
+            padding: 14px 14px 16px 14px;
+        }
+
+        .video-info h4 {
+            font-size: 1.02rem;
+            color: var(--gray-900);
+            margin: 0 0 8px 0;
+            line-height: 1.35;
+        }
+
+        .video-meta {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+            margin-bottom: 12px;
+        }
+
+        .video-meta span i {
+            margin-right: 5px;
+        }
+
+        .watch-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #4CAF50 0%, #388e3c 100%);
+            color: white;
+            padding: 10px 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.92rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.25);
+        }
+
+        .watch-btn:hover {
+            background: linear-gradient(135deg, #388e3c 0%, #2e7d32 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 18px rgba(76, 175, 80, 0.28);
+        }
+
+        .btn-back-home {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 12px 24px;
+            background-color: #f39c12;
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: background-color 0.25s ease, transform 0.2s ease;
+            box-shadow: 0 6px 18px rgba(243, 156, 18, 0.25);
+        }
+        .btn-back-home:hover {
+            background-color: #e67e22;
+            transform: translateY(-1px);
+        }
+
+        .link-section {
+            margin: 8px 0 6px 0;
+            font-size: 0.95rem;
+        }
+
+        .link-section a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            margin: 4px 6px 4px 0;
+            background: #f1f5f9;
+            color: var(--green-700);
+            text-decoration: none;
+            border-radius: 10px;
+            border: 1px solid #e5edf5;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.15s ease;
+            white-space: nowrap;
+        }
+
+        .link-section a:hover {
+            background: #e8f5e9;
+            color: #1b5e20;
+            border-color: #cde7d6;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #1b5e20;
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            margin-left: 6px;
+        }
+
+        .lang-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 6px 0 18px 0;
+        }
+
+        .lang-btn {
+            background: #ffffff;
+            border: 1px solid #cde7d6;
+            color: #1b5e20;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn:hover {
+            background: #e8f5e9;
+            transform: translateY(-1px);
+        }
+
+        /* Mini card grid for quick access */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+            margin: 0 0 18px 0;
+        }
+
+        .mini-card {
+            background: #ffffff;
+            border: 1px solid #eef2f7;
+            border-radius: 12px;
+            padding: 12px 14px;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.04);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--gray-900);
+            font-weight: 700;
+        }
+
+        .mini-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.07);
+        }
+
+        .mini-card i {
+            color: var(--green-600);
+            font-size: 1.1rem;
+        }
+
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 18px;
+            }
+            h1 {
+                font-size: 2rem;
+                flex-direction: column;
+            }
+            h2 {
+                font-size: 1.35rem;
+            }
+            h3 {
+                font-size: 1.05rem;
+            }
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+            .link-section a {
+                white-space: normal;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero-card">
+            <h1><i class="fas fa-book-reader"></i> <span data-en="E-Learning for Farmers" data-kn="ಕೃಷಿಕರಿಗಾಗಿ ಇ-ಲರ್ನಿಂಗ್">E-Learning for Farmers</span></h1>
+            <div class="lang-toggle">
+                <span style="font-weight:700;color:var(--green-700);">Language:</span>
+                <button id="lang-toggle" class="lang-btn" type="button">View in Kannada</button>
+            </div>
+        </div>
+
+        <!-- Quick access mini-cards -->
+        <div class="card-grid">
+            <a class="mini-card" href="#mindset">
+                <i class="fas fa-seedling"></i> Entrepreneur Mindset
+            </a>
+            <a class="mini-card" href="#requirements">
+                <i class="fas fa-lightbulb"></i> Startup Basics
+            </a>
+            <a class="mini-card" href="#documents">
+                <i class="fas fa-file-alt"></i> Documents
+            </a>
+            <a class="mini-card" href="#valueadd">
+                <i class="fas fa-balance-scale"></i> Value-Added Products
+            </a>
+            <a class="mini-card" href="#skills">
+                <i class="fas fa-wrench"></i> Skills to Learn
+            </a>
+            <a class="mini-card" href="#videos">
+                <i class="fas fa-video"></i> Video Learning Hub
+            </a>
+        </div>
+
+        <div class="section-card" id="mindset">
+            <h2><i class="fas fa-seedling"></i> <span data-en="Farmer as Entrepreneur: A Mindset Shift" data-kn="ಕೃಷಿಕರು ಉದ್ಯಮಿಗಳಾಗಿ: ಮನೋಭಾವ ಬದಲಾವಣೆ">Farmer as Entrepreneur: A Mindset Shift</span></h2>
+            <p data-en="Discover how you can grow beyond traditional farming to become a successful agri-entrepreneur. It's about seeing new opportunities in your crops and land!" data-kn="ಪಾರಂಪರಿಕ ಕೃಷಿಗೆ ಮೀರಿ ಯಶಸ್ವಿ ಕೃಷಿ ಉದ್ಯಮಿ ಆಗಲು ಹೇಗೆ ಬೆಳೆಯಬಹುದು ಎಂಬುದನ್ನು ತಿಳಿಯಿರಿ. ನಿಮ್ಮ ಬೆಳೆ ಮತ್ತು ಭೂಮಿಯಲ್ಲಿನ ಹೊಸ ಅವಕಾಶಗಳನ್ನು ಗುರುತಿಸುವುದರ ಕುರಿತು ಇದು ಹೇಳುತ್ತದೆ.">Discover how you can grow beyond traditional farming to become a successful agri-entrepreneur. It's about seeing new opportunities in your crops and land!</p>
+            <ul>
+                <li>
+                    <strong>Innovation:</strong> Transform raw produce into valuable products.
+                    <p class="link-section">
+                        🔗 Learn more:
+                        <a href="https://pmfme.mofpi.gov.in" target="_blank">PMFME Scheme (Food Processing)</a>,
+                        <a href="https://mofpi.gov.in" target="_blank">Food Processing Ministry</a>,
+                        <a href="https://kvk.icar.gov.in" target="_blank">KVK Farmer Training</a>
+                    </p>
+                </li>
+                <li>
+                    <strong>Market Insight:</strong> Understand what consumers want and how to reach them.
+                    <p class="link-section">
+                        🔗 Learn more:
+                        <a href="https://www.enam.gov.in" target="_blank">eNAM Market (Online Trading)</a>,
+                        <a href="https://agmarknet.gov.in" target="_blank">Agmarknet Prices (Market Data)</a>,
+                        <a href="https://ondc.org" target="_blank">ONDC Platform (E-commerce)</a>
+                    </p>
+                </li>
+                <li>
+                    <strong>Sustainability:</strong> Build a business that supports your family and the environment.
+                    <p class="link-section">
+                        🔗 Learn more:
+                        <a href="https://www.nabard.org" target="_blank">NABARD Support (Rural Development)</a>,
+                        <a href="https://nmsa.dac.gov.in" target="_blank">Sustainable Agriculture (NMSA)</a>,
+                        <a href="https://pmkisan.gov.in" target="_blank">PM-KISAN (Farmer Income Support)</a>
+                    </p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section-card" id="requirements">
+            <h2><i class="fas fa-lightbulb"></i> <span data-en="Basic Requirements to Start a Farmer Startup" data-kn="ಕೃಷಿಕರ ಸ್ಟಾರ್ಟಪ್ ಆರಂಭಿಸಲು ಮೂಲ ಅಗತ್ಯಗಳು">Basic Requirements to Start a Farmer Startup</span></h2>
+            <p data-en="Getting started is simpler than you think. Here are the fundamental steps and considerations:" data-kn="ಪ್ರಾರಂಭಿಸುವುದು ನೀವು ಊಹಿಸಿದಷ್ಟಕ್ಕಿಂತ ಸರಳ. ಇಲ್ಲಿವೆ ಮೂಲ ಹಂತಗಳು ಮತ್ತು ಪರಿಗಣನೆಗಳು:">Getting started is simpler than you think. Here are the fundamental steps and considerations:</p>
+            <ul>
+                <li>
+                    <strong>Business Plan:</strong> A simple plan outlining your product, market, and finances.
+                    <p class="link-section">
+                        🔗 Learn more:
+                        <a href="https://pmfme.mofpi.gov.in" target="_blank">PMFME Business Support</a>,
+                        <a href="https://kvk.icar.gov.in" target="_blank">KVK Training (Skill Development)</a>,
+                        <a href="https://www.startupindia.gov.in" target="_blank">Startup India (Guidance)</a>
+                    </p>
+                </li>
+                <li>
+                    <strong>Initial Investment:</strong> Understanding your capital needs and funding sources.
+                    <p class="link-section">
+                        🔗 Learn more:
+                        <a href="https://www.myscheme.gov.in/schemes/kcc" target="_blank">Kisan Credit Card (Short-term Loan)</a>,
+                        <a href="https://www.mudra.org.in" target="_blank">Mudra Loan (Micro-enterprise)</a>,
+                        <a href="https://www.nabard.org" target="_blank">NABARD Finance (Agriculture Loans)</a>
+                    </p>
+                </li>
+                <li>
+                    <strong>Legal Structure:</strong> Choosing the right legal form for your business.
+                    <p class="link-section">
+                        🔗 Learn more:
+                        <a href="https://www.gst.gov.in" target="_blank">GST Registration (Tax)</a>,
+                        <a href="https://foscos.fssai.gov.in" target="_blank">FSSAI Registration (Food Safety)</a>,
+                        <a href="https://sfacindia.com" target="_blank">FPO Registration (Farmer Producer Org)</a>
+                    </p>
+                </li>
+                <li>
+                    <strong>Resources:</strong> Identifying land, water, labor, and equipment.
+                    <p class="link-section">
+                        🔗 Learn more:
+                        <a href="https://soilhealth.dac.gov.in" target="_blank">Soil Health Card (Soil Analysis)</a>,
+                        <a href="https://pmksy.gov.in" target="_blank">PMKSY Irrigation (Water Management)</a>,
+                        <a href="https://agrimachinery.nic.in" target="_blank">Agri Machinery Subsidy (Equipment)</a>
+                    </p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section-card" id="documents">
+            <h2><i class="fas fa-file-alt"></i> <span data-en="Necessary Documents (Explained Simply)" data-kn="ಅವಶ್ಯಕ ದಾಖಲೆಗಳು (ಸರಳವಾಗಿ ಹೇಳಿದೆ)">Necessary Documents (Explained Simply)</span></h2>
+            <p data-en="Navigating paperwork can be challenging, but these are key documents you'll need:" data-kn="ದಾಖಲೆ ಪ್ರಕ್ರಿಯೆ ಸವಾಲಾಗಿರಬಹುದು, ಆದರೆ ನಿಮಗೆ ಬೇಕಾಗುವ ಮುಖ್ಯ ದಾಖಲೆಗಳು ಇವು:">Navigating paperwork can be challenging, but these are key documents you'll need:</p>
+            <ul>
+                <li>
+                    <strong>PAN (Permanent Account Number):</strong> Essential for financial transactions and taxes.
+                    <p class="link-section">
+                        🔗 Learn / Apply:
+                        <a href="https://www.incometax.gov.in" target="_blank">Income Tax Portal</a>,
+                        <a href="https://www.incometax.gov.in/iec/foportal" target="_blank">PAN–Aadhaar Link</a>
+                    </p>
+                </li>
+                <li>
+                    <strong>GST (Goods and Services Tax) Registration:</strong> Required if turnover exceeds limit or for interstate sales.
+                    <p class="link-section">
+                        🔗 Learn / Apply:
+                        <a href="https://www.gst.gov.in" target="_blank">GST Portal</a>,
+                        <a href="https://www.myscheme.gov.in" target="_blank">GST Guide for Small Businesses</a>
+                    </p>
+                </li>
+                <li>
+                    <strong>FSSAI License:</strong> Mandatory for any food-related or processed food business.
+                    <p class="link-section">
+                        🔗 Learn / Apply:
+                        <a href="https://foscos.fssai.gov.in" target="_blank">FSSAI FoSCoS Portal</a>,
+                        <a href="https://www.fssai.gov.in" target="_blank">FSSAI Guidelines</a>
+                    </p>
+                </li>
+                <li>
+                    <strong>Farmer ID / Land Records:</strong> Proof of farming status and land ownership/lease.
+                    <p class="link-section">
+                        🔗 Learn / Access:
+                        <a href="https://pmkisan.gov.in" target="_blank">PM-KISAN (Farmer Database)</a>,
+                        <a href="https://landrecords.karnataka.gov.in" target="_blank">State Land Records (e-Bhumi)</a>
+                    </p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section-card" id="valueadd">
+            <h2><i class="fas fa-balance-scale"></i> <span data-en="Raw Crop vs. Value-Added Product Comparison" data-kn="ಕಚ್ಚಾ ಬೆಳೆ ಮತ್ತು ಮೌಲ್ಯವರ್ಧಿತ ಉತ್ಪನ್ನಗಳ ಹೋಲಿಕೆ">Raw Crop vs. Value-Added Product Comparison</span></h2>
+            <p data-en="See how converting your crops into processed goods can significantly increase your income:" data-kn="ನಿಮ್ಮ ಬೆಳೆಗಳನ್ನು ಪ್ರಾಸೆಸ್ಡ್ ಉತ್ಪನ್ನಗಳಾಗಿ ಮಾರ್ಪಡಿಸುವುದರಿಂದ ಆದಾಯ ಹೇಗೆ ಹೆಚ್ಚಬಹುದು ನೋಡಿ:">See how converting your crops into processed goods can significantly increase your income:</p>
+            <ul>
+                <li>
+                    <strong>Raw Tomatoes:</strong> Sold seasonally at lower prices.
+                    <p class="link-section">
+                        🔗 Learn more:
+                        <a href="https://agmarknet.gov.in" target="_blank">Market Prices (Agmarknet)</a>
+                    </p>
+                </li>
+                <li>
+                    <strong>Value-Added Tomatoes:</strong> Puree, sauce, dried tomatoes – better shelf life and pricing.
+                    <p class="link-section">
+                        🔗 Learn / Watch:
+                        <a href="https://mofpi.gov.in" target="_blank">Food Processing Support</a>,
+                        <a href="https://pmfme.mofpi.gov.in" target="_blank">PMFME Scheme</a>,
+                        <a href="https://foscos.fssai.gov.in" target="_blank">FSSAI License (Mandatory)</a>,
+                        <a href="https://www.youtube.com/results?search_query=tomato+processing+for+farmers" target="_blank">YouTube Guide (Processing)</a>
+                    </p>
+                </li>
+                <li>
+                    <strong>Raw Mangoes:</strong> Limited season, susceptible to spoilage.
+                    <p class="link-section">
+                        🔗 Learn more:
+                        <a href="https://agmarknet.gov.in" target="_blank">Market Prices (Agmarknet)</a>
+                    </p>
+                </li>
+                <li>
+                    <strong>Value-Added Mangoes:</strong> Pulp, pickle, jam, juice – year-round income.
+                    <p class="link-section">
+                        🔗 Learn / Watch:
+                        <a href="https://pmfme.mofpi.gov.in" target="_blank">PMFME Scheme</a>,
+                        <a href="https://foscos.fssai.gov.in" target="_blank">FSSAI License (Mandatory)</a>,
+                        <a href="https://www.youtube.com/results?search_query=mango+processing+for+farmers" target="_blank">YouTube Guide (Processing)</a>
+                    </p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section-card" id="skills">
+            <h2><i class="fas fa-wrench"></i> <span data-en="Skills Farmers Must Learn" data-kn="ಕೃಷಿಕರು ಕಲಿಯಬೇಕಾದ ಕೌಶಲ್ಯಗಳು">Skills Farmers Must Learn</span></h2>
+            <p data-en="To succeed as an agri-entrepreneur, consider developing these new skills:" data-kn="ಯಶಸ್ವಿ ಕೃಷಿ ಉದ್ಯಮಿ ಆಗಲು ಈ ಹೊಸ ಕೌಶಲ್ಯಗಳನ್ನು ಅಭಿವೃದ್ಧಿಪಡಿಸಿ:">To succeed as an agri-entrepreneur, consider developing these new skills:</p>
+            <ul>
+                <li>
+                    <strong>Processing Techniques:</strong> Basic methods for drying, milling, preserving.
+                    <p class="link-section">
+                        🔗 Learn more:
+                        <a href="https://mofpi.gov.in" target="_blank">MoFPI (Food Processing Policies)</a>,
+                        <a href="https://pmfme.mofpi.gov.in" target="_blank">PMFME Scheme (Processing Support)</a>
+                    </p>
+                    <p class="link-section">
+                        🎥 Watch:
+                        <a href="https://www.youtube.com/results?search_query=food+processing+training+for+farmers" target="_blank">YouTube Guide (Practical Training)</a>
+                    </p>
+                </li>
+                <li>
+                    <strong>Branding & Packaging:</strong> Making your product attractive and recognizable.
+                    <p class="link-section">
+                        🔗 Learn more:
+                        <a href="https://www.startupindia.gov.in" target="_blank">Startup India (Branding Advice)</a>,
+                        <a href="https://msme.gov.in" target="_blank">MSME Support (Packaging Standards)</a>
+                    </p>
+                    <p class="link-section">
+                        🎥 Watch:
+                        <a href="https://www.youtube.com/results?search_query=branding+and+packaging+for+farmers" target="_blank">YouTube Guide (Visual Branding)</a>
+                    </p>
+                </li>
+                <li>
+                    <strong>Marketing & Sales:</strong> Reaching customers directly, online, or through markets.
+                    <p class="link-section">
+                        🔗 Learn more:
+                        <a href="https://www.enam.gov.in" target="_blank">eNAM (Online Market Platform)</a>,
+                        <a href="https://ondc.org" target="_blank">ONDC (Digital Commerce)</a>
+                    </p>
+                    <p class="link-section">
+                        🎥 Watch:
+                        <a href="https://www.youtube.com/results?search_query=how+farmers+sell+products+online" target="_blank">YouTube Guide (Online Selling Tips)</a>
+                    </p>
+                </li>
+                <li>
+                    <strong>Financial Management:</strong> Keeping track of income, expenses, and profits.
+                    <p class="link-section">
+                        🔗 Learn more:
+                        <a href="https://www.nabard.org" target="_blank">NABARD (Financial Schemes)</a>,
+                        <a href="https://pmjdy.gov.in" target="_blank">PMJDY (Financial Inclusion)</a>
+                    </p>
+                    <p class="link-section">
+                        🎥 Watch:
+                        <a href="https://www.youtube.com/results?search_query=basic+accounting+for+farmers" target="_blank">YouTube Guide (Simple Accounting)</a>
+                    </p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section-card">
+            <h2><i class="fas fa-handshake"></i> Bank Connection and Government Loan/Subsidy Overview</h2>
+            <p>Accessing financial support is crucial. Explore these options:</p>
+            <ul>
+                <li>
+                    <strong>Kisan Credit Card (KCC):</strong> For short-term credit needs.
+                    <p class="link-section">
+                        🔗 Learn / Apply:
+                        <a href="https://www.myscheme.gov.in/schemes/kcc" target="_blank">KCC Scheme Details</a>,
+                        <a href="https://pmjdy.gov.in" target="_blank">PMJDY (Financial Inclusion)</a>
+                    </p>
+                    <p class="link-section">
+                        🎥 Watch:
+                        <a href="https://www.youtube.com/results?search_query=kisan+credit+card+how+to+apply" target="_blank">YouTube Guide (How to Apply)</a>
+                    </p>
+                </li>
+                <li>
+                    <strong>PMFME Scheme (Pradhan Mantri Formalisation of Micro Food Processing Enterprises):</strong> Support for micro food processing units.
+                    <p class="link-section">
+                        🔗 Learn / Apply:
+                        <a href="https://pmfme.mofpi.gov.in" target="_blank">PMFME Official Portal</a>,
+                        <a href="https://mofpi.gov.in" target="_blank">MoFPI (Ministry Support)</a>
+                    </p>
+                    <p class="link-section">
+                        🎥 Watch:
+                        <a href="https://www.youtube.com/results?search_query=pmfme+scheme+for+farmers" target="_blank">YouTube Guide (Scheme Benefits)</a>
+                    </p>
+                </li>
+                <li>
+                    <strong>NABARD Schemes:</strong> Loans and development support for farmers.
+                    <p class="link-section">
+                        🔗 Learn more:
+                        <a href="https://www.nabard.org" target="_blank">NABARD Official Site</a>,
+                        <a href="https://www.nabard.org/content1.aspx?id=608" target="_blank">NABARD Schemes Overview</a>
+                    </p>
+                    <p class="link-section">
+                        🎥 Watch:
+                        <a href="https://www.youtube.com/results?search_query=nabard+loan+for+farmers" target="_blank">YouTube Guide (Loan Application)</a>
+                    </p>
+                </li>
+                <li>
+                    <strong>Local Bank Loans:</strong> Agricultural loans from commercial and rural banks.
+                    <p class="link-section">
+                        🔗 Learn more:
+                        <a href="https://sbi.co.in/web/agri-rural" target="_blank">SBI Agri-Rural Loans</a>,
+                        <a href="https://www.nabard.org/content1.aspx?id=507" target="_blank">Regional Rural Banks (NABARD)</a>
+                    </p>
+                    <p class="link-section">
+                        🎥 Watch:
+                        <a href="https://www.youtube.com/results?search_query=how+to+get+bank+loan+for+farmers" target="_blank">YouTube Guide (Bank Loan Process)</a>
+                    </p>
+                </li>
+            </ul>
+        </div>
+
+        <h2 id="videos"><i class="fas fa-video"></i> <span data-en="Video Learning Hub" data-kn="ವೀಡಿಯೊ ಕಲಿಕಾ ಕೇಂದ್ರ">Video Learning Hub</span></h2>
+
+        <div class="video-category">
+            <h3><i class="fas fa-mortar-pestle"></i> By-product Making</h3>
+            <div class="video-grid">
+                {% for video in videos.by_product_making %}
+                {% set thumb = video.thumbnail if video.thumbnail else 'https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg' %}
+                <div class="video-card">
+                    <img src="{{ thumb }}" alt="{{ video.title }}" class="video-thumbnail">
+                    <div class="video-info">
+                        <h4>{{ video.title }}</h4>
+                        <p class="video-meta"><span><i class="fas fa-language"></i> {{ video.language or 'Kannada | Free | Farmer Friendly' }}</span></p>
+                        <a href="{{ video.url }}" target="_blank" rel="noopener noreferrer" class="watch-btn"><i class="fab fa-youtube"></i> Watch Video (Kannada)</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="video-category">
+            <h3><i class="fas fa-file-invoice"></i> Documentation & Registration</h3>
+            <div class="video-grid">
+                {% for video in videos.documentation_registration %}
+                {% set thumb = video.thumbnail if video.thumbnail else 'https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg' %}
+                <div class="video-card">
+                    <img src="{{ thumb }}" alt="{{ video.title }}" class="video-thumbnail">
+                    <div class="video-info">
+                        <h4>{{ video.title }}</h4>
+                        <p class="video-meta"><span><i class="fas fa-language"></i> {{ video.language or 'Kannada | Free | Farmer Friendly' }}</span></p>
+                        <a href="{{ video.url }}" target="_blank" rel="noopener noreferrer" class="watch-btn"><i class="fab fa-youtube"></i> Watch Video (Kannada)</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="video-category">
+            <h3><i class="fas fa-chart-line"></i> Startup & Marketing Guidance for Farmers</h3>
+            <div class="video-grid">
+                {% for video in videos.startup_marketing_guidance %}
+                {% set thumb = video.thumbnail if video.thumbnail else 'https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg' %}
+                <div class="video-card">
+                    <img src="{{ thumb }}" alt="{{ video.title }}" class="video-thumbnail">
+                    <div class="video-info">
+                        <h4>{{ video.title }}</h4>
+                        <p class="video-meta"><span><i class="fas fa-language"></i> {{ video.language or 'Kannada | Free | Farmer Friendly' }}</span></p>
+                        <a href="{{ video.url }}" target="_blank" rel="noopener noreferrer" class="watch-btn"><i class="fab fa-youtube"></i> Watch Video (Kannada)</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="video-category">
+            <h3><i class="fas fa-landmark"></i> Government Schemes & Loans</h3>
+            <div class="video-grid">
+                {% for video in videos.govt_schemes_loans %}
+                {% set thumb = video.thumbnail if video.thumbnail else 'https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg' %}
+                <div class="video-card">
+                    <img src="{{ thumb }}" alt="{{ video.title }}" class="video-thumbnail">
+                    <div class="video-info">
+                        <h4>{{ video.title }}</h4>
+                        <p class="video-meta"><span><i class="fas fa-language"></i> {{ video.language or 'Kannada | Free | Farmer Friendly' }}</span></p>
+                        <a href="{{ video.url }}" target="_blank" rel="noopener noreferrer" class="watch-btn"><i class="fab fa-youtube"></i> Watch Video (Kannada)</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <a href="/particular_disease_detection" class="btn-back-home"><i class="fas fa-arrow-left"></i> Back to Main Options</a>
+    </div>
+
+    <script>
+        (function() {
+            const toggleBtn = document.getElementById('lang-toggle');
+            let currentLang = 'en';
+
+            function applyLang(lang) {
+                document.querySelectorAll('[data-en][data-kn]').forEach(el => {
+                    const text = el.dataset[lang];
+                    if (text) {
+                        el.textContent = text;
+                    }
+                });
+                document.documentElement.setAttribute('lang', lang === 'kn' ? 'kn' : 'en');
+                toggleBtn.textContent = lang === 'kn' ? 'View in English' : 'View in Kannada';
+                currentLang = lang;
+            }
+
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', () => {
+                    applyLang(currentLang === 'en' ? 'kn' : 'en');
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
+

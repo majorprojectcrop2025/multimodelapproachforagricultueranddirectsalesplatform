@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriTech </title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated background elements */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(34, 139, 34, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(139, 69, 19, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(85, 107, 47, 0.1) 0%, transparent 50%);
+            z-index: 0;
+            animation: backgroundShift 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .header .tagline {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* Cards Grid */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A, #CDDC39, #4CAF50);
+            background-size: 200% 100%;
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .card-icon {
+            transform: rotate(360deg) scale(1.1);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.6);
+        }
+
+        .card h2 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .card p {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .card .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .card .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .card .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.5);
+        }
+
+        .card .btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Specific card color variations */
+        .card:nth-child(1) .card-icon {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        }
+        .card:nth-child(1) .btn {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+        .card:nth-child(1) .btn:hover {
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.5);
+        }
+
+        .card:nth-child(2) .card-icon {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+        }
+        .card:nth-child(2) .btn {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+        .card:nth-child(2) .btn:hover {
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.5);
+        }
+
+        .card:nth-child(3) .card-icon {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+        }
+        .card:nth-child(3) .btn {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+        }
+        .card:nth-child(3) .btn:hover {
+            box-shadow: 0 6px 20px rgba(243, 156, 18, 0.5);
+        }
+
+        .card:nth-child(4) .card-icon {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+        }
+        .card:nth-child(4) .btn {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            box-shadow: 0 4px 15px rgba(155, 89, 182, 0.3);
+        }
+        .card:nth-child(4) .btn:hover {
+            box-shadow: 0 6px 20px rgba(155, 89, 182, 0.5);
+        }
+
+        .card:nth-child(5) .card-icon {
+            background: linear-gradient(135deg, #16a085 0%, #138d75 100%);
+        }
+        .card:nth-child(5) .btn {
+            background: linear-gradient(135deg, #16a085 0%, #138d75 100%);
+            box-shadow: 0 4px 15px rgba(22, 160, 133, 0.3);
+        }
+        .card:nth-child(5) .btn:hover {
+            box-shadow: 0 6px 20px rgba(22, 160, 133, 0.5);
+        }
+
+        .card:nth-child(6) .card-icon {
+            background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+        }
+        .card:nth-child(6) .btn {
+            background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
+        }
+        .card:nth-child(6) .btn:hover {
+            box-shadow: 0 6px 20px rgba(230, 126, 34, 0.5);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .header .subtitle {
+                font-size: 1rem;
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .card {
+                padding: 25px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 20px 15px;
+            }
+        }
+
+        .lang-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 12px;
+            justify-content: center;
+        }
+
+        .lang-btn {
+            background: #ffffff;
+            border: 1px solid #cde7d6;
+            color: #1b5e20;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn:hover {
+            background: #e8f5e9;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-seedling"></i> <span data-en="AgriTech Solutions" data-kn="ಅಗ್ರಿಟೆಕ್ ಸೊಲ್ಯೂಷನ್ಸ್">AgriTech Solutions</span></h1>
+            <p class="subtitle" data-en="Smart Agriculture Platform" data-kn="ಸ್ಮಾರ್ಟ್ ಕೃಷಿ ವೇದಿಕೆ">Smart Agriculture Platform</p>
+            <p class="tagline" data-en="Empowering Farmers with AI-Driven Agricultural Intelligence" data-kn="ಕೃಷಿಕರಿಗೆ AI ಚಾಲಿತ ಕೃಷಿ ಜ್ಞಾನದಿಂದ ಶಕ್ತಿ ನೀಡುವುದು">Empowering Farmers with AI-Driven Agricultural Intelligence</p>
+            <div class="lang-toggle">
+                <span style="font-weight:700;color:#1b5e20;">Language:</span>
+                <button id="lang-toggle" class="lang-btn" type="button">View in Kannada</button>
+            </div>
+        </div>
+
+        <div class="cards-container">
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-microscope"></i>
+                </div>
+                <h2 data-en="Disease Detection" data-kn="ರೋಗ ಪತ್ತೆ">Disease Detection</h2>
+                <p data-en="AI-powered plant disease identification using advanced image recognition technology" data-kn="ಅತ್ಯಾಧುನಿಕ ಚಿತ್ರ ಗುರುತಿಸುವ ತಂತ್ರಜ್ಞಾನದಿಂದ AI ಆಧಾರಿತ ಸಸ್ಯ ರೋಗ ಗುರುತಿಸುವಿಕೆ">AI-powered plant disease identification using advanced image recognition technology</p>
+                <a href="/disease_detection" class="btn">
+                    <span data-en="Explore Service" data-kn="ಸೇವೆಯನ್ನು ಅನ್ವೇಷಿಸಿ">Explore Service</span> <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-book-medical"></i>
+                </div>
+                <h2 data-en="Disease Description" data-kn="ರೋಗ ವಿವರಣೆ">Disease Description</h2>
+                <p data-en="Comprehensive database of plant diseases with detailed information and treatment steps" data-kn="ಸಸ್ಯ ರೋಗಗಳ ವಿಶದ ಮಾಹಿತಿ ಮತ್ತು ಚಿಕಿತ್ಸೆ ಕ್ರಮಗಳ ಸಮಗ್ರ ಡೇಟಾಬೇಸ್">Comprehensive database of plant diseases with detailed information and treatment steps</p>
+                <a href="/disease_description" class="btn">
+                    <span data-en="Explore Service" data-kn="ಸೇವೆಯನ್ನು ಅನ್ವೇಷಿಸಿ">Explore Service</span> <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h2 data-en="Yield Prediction" data-kn="ಉತ್ಪಾದನೆ ಮುನ್ಸೂಚನೆ">Yield Prediction</h2>
+                <p data-en="Advanced machine learning models for accurate crop yield forecasting" data-kn="ನಿಖರವಾದ ಬೆಳೆ ಉತ್ಪಾದನೆ ಮುನ್ಸೂಚನೆಗಾಗಿ ಮುಂದುವರಿದ ಮೆಷಿನ್ ಲರ್ನಿಂಗ್ ಮಾದರಿಗಳು">Advanced machine learning models for accurate crop yield forecasting</p>
+                <a href="/yield_prediction" class="btn">
+                    <span data-en="Explore Service" data-kn="ಸೇವೆಯನ್ನು ಅನ್ವೇಷಿಸಿ">Explore Service</span> <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h2 data-en="New Yield Prediction" data-kn="ಹೊಸ ಉತ್ಪಾದನೆ ಮುನ್ಸೂಚನೆ">New Yield Prediction</h2>
+                <p data-en="Enhanced yield prediction system with state-of-the-art algorithms" data-kn="ಅತ್ಯಾಧುನಿಕ ಆಲ್ಗೊರಿದಮ್‌ಗಳೊಂದಿಗೆ ಅಭಿವೃದ್ಧಿಪಡಿಸಿದ ಉತ್ಪಾದನೆ ಮುನ್ಸೂಚನೆ ವ್ಯವಸ್ಥೆ">Enhanced yield prediction system with state-of-the-art algorithms</p>
+                <a href="/new_yield_prediction" class="btn">
+                    <span data-en="Explore Service" data-kn="ಸೇವೆಯನ್ನು ಅನ್ವೇಷಿಸಿ">Explore Service</span> <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h2 data-en="AI Chat Bot of Agri" data-kn="ಕೃಷಿ AI ಚಾಟ್ ಬಾಟ್">AI Chat Bot of Agri</h2>
+                <p data-en="Converse with a Gemini-powered assistant that answers any agriculture question." data-kn="ಯಾವುದೇ ಕೃಷಿ ಪ್ರಶ್ನೆಗೆ ಉತ್ತರಿಸುವ ಜೆಮಿನಿ ಚಾಲಿತ ಸಹಾಯಕರೊಂದಿಗೆ ಸಂಭಾಷಿಸಿ.">Converse with a Gemini-powered assistant that answers any agriculture question.</p>
+                <a href="/agri_chatbot" class="btn">
+                    <span data-en="Start Chat" data-kn="ಚಾಟ್ ಆರಂಭಿಸಿ">Start Chat</span> <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <h2 data-en="Karnataka Yield Prediction" data-kn="ಕರ್ನಾಟಕ ಉತ್ಪಾದನೆ ಮುನ್ಸೂಚನೆ">Karnataka Yield Prediction</h2>
+                <p data-en="Predict crop yield for Karnataka using the trained RandomForest model." data-kn="ತರಬೇತಿ ಪಡೆದ ರ್ಯಾಂಡಂಫಾರೆಸ್ಟ್ ಮಾದರಿಯನ್ನು ಬಳಸಿ ಕರ್ನಾಟಕದ ಬೆಳೆ ಉತ್ಪಾದನೆಯನ್ನು ಮುನ್ಸೂಚಿಸಿ.">Predict crop yield for Karnataka using the trained RandomForest model.</p>
+                <a href="/karnataka_yield_prediction" class="btn">
+                    <span data-en="Explore Service" data-kn="ಸೇವೆಯನ್ನು ಅನ್ವೇಷಿಸಿ">Explore Service</span> <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <h2 data-en="Karnataka Yield Prediction" data-kn="ಕರ್ನಾಟಕ ಉತ್ಪಾದನೆ ಮುನ್ಸೂಚನೆ">Karnataka Yield Prediction</h2>
+                <p data-en="Predict crop yield for Karnataka using the trained RandomForest model." data-kn="ತರಬೇತಿ ಪಡೆದ ರ್ಯಾಂಡಂಫಾರೆಸ್ಟ್ ಮಾದರಿಯನ್ನು ಬಳಸಿ ಕರ್ನಾಟಕದ ಬೆಳೆ ಉತ್ಪಾದನೆಯನ್ನು ಮುನ್ಸೂಚಿಸಿ.">Predict crop yield for Karnataka using the trained RandomForest model.</p>
+                <a href="/karnataka_yield_prediction" class="btn">
+                    <span data-en="Explore Service" data-kn="ಸೇವೆಯನ್ನು ಅನ್ವೇಷಿಸಿ">Explore Service</span> <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-magnifying-glass-chart"></i>
+                </div>
+                <h2 data-en="Particular Disease Detection" data-kn="ನಿರ್ದಿಷ್ಟ ರೋಗ ಪತ್ತೆ">Particular Disease Detection</h2>
+                <p data-en="Focus on detecting specific diseases for particular crops." data-kn="ನಿರ್ದಿಷ್ಟ ಬೆಳೆಗಳಿಗಾಗಿ ನಿರ್ದಿಷ್ಟ ರೋಗಗಳನ್ನು ಪತ್ತೆಹಚ್ಚುವುದರ ಮೇಲೆ ಕೇಂದ್ರೀಕರಿಸುತ್ತದೆ.">Focus on detecting specific diseases for particular crops.</p>
+                <a href="/particular_disease_detection" class="btn">
+                    <span data-en="Explore Service" data-kn="ಸೇವೆಯನ್ನು ಅನ್ವೇಷಿಸಿ">Explore Service</span> <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h2 data-en="DIRECT SALES PLATFORM" data-kn="ನೇರ ಮಾರಾಟ ವೇದಿಕೆ">DIRECT SALES PLATFORM</h2>
+                <p data-en="Connect directly with buyers and sellers for agricultural products." data-kn="ಕೃಷಿ ಉತ್ಪನ್ನಗಳ ಖರೀದಿದಾರರು ಮತ್ತು ಮಾರಾಟಗಾರರೊಂದಿಗೆ ನೇರವಾಗಿ ಸಂಪರ್ಕಿಸಿ.">Connect directly with buyers and sellers for agricultural products.</p>
+                <a href="/direct_sales_platform" class="btn">
+                    <span data-en="Explore Platform" data-kn="ವೇದಿಕೆಯನ್ನು ಅನ್ವೇಷಿಸಿ">Explore Platform</span> <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h2 data-en="E-Learning for Farmers" data-kn="ಕೃಷಿಕರಿಗಾಗಿ ಇ-ಲರ್ನಿಂಗ್">E-Learning for Farmers</h2>
+                <p data-en="Learn about farmer startups, converting crops to by-products, essential documents, and accessing loans/subsidies." data-kn="ಕೃಷಿಕರ ಸ್ಟಾರ್ಟಪ್‌ಗಳು, ಬೆಳೆಗಳನ್ನು ಮೌಲ್ಯವರ್ಧಿತ ಉತ್ಪನ್ನಗಳಾಗಿ ಪರಿವರ್ತಿಸುವುದು, ಅಗತ್ಯ ದಾಖಲೆಗಳು, ಸಾಲ/ಸಬ್ಸಿಡಿಗಳನ್ನು ಪಡೆಯುವುದು ಕುರಿತು ತಿಳಿದುಕೊಳ್ಳಿ.">Learn about farmer startups, converting crops to by-products, essential documents, and accessing loans/subsidies.</p>
+                <a href="/elearning" class="btn">
+                    <span data-en="Start Learning" data-kn="ಕಲಿಕೆ ಪ್ರಾರಂಭಿಸಿ">Start Learning</span> <i class="fas fa-book-open"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2024 AgriTech Solutions. All rights reserved. | Powered by AI & Machine Learning</p>
+        </div>
+    </div>
+    <div id="mapid" style="height: 400px; width: 80%; margin: 50px auto; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        (function() {
+            const toggleBtn = document.getElementById('lang-toggle');
+            let currentLang = 'en';
+
+            function applyLang(lang) {
+                document.querySelectorAll('[data-en][data-kn]').forEach(el => {
+                    const text = el.dataset[lang];
+                    if (text) el.textContent = text;
+                });
+                document.documentElement.setAttribute('lang', lang === 'kn' ? 'kn' : 'en');
+                if (toggleBtn) toggleBtn.textContent = lang === 'kn' ? 'View in English' : 'View in Kannada';
+                currentLang = lang;
+            }
+
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', () => {
+                    applyLang(currentLang === 'en' ? 'kn' : 'en');
+                });
+            }
+        })();
+    </script>
+    <script>
+        var mymap = L.map('mapid').setView([20.5937, 78.9629], 5); // Default to center of India
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(mymap);
+
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var lat = position.coords.latitude;
+                var lon = position.coords.longitude;
+                mymap.setView([lat, lon], 13); // Set view to user's location with zoom level 13
+
+                L.marker([lat, lon]).addTo(mymap)
+                    .bindPopup("Your Current Location")
+                    .openPopup();
+            }, function(error) {
+                console.log("Error getting user location:", error);
+                alert("Could not retrieve your location. Displaying a default map view.");
+            });
+        } else {
+            alert("Geolocation is not supported by your browser. Displaying a default map view.");
+        }
+    </script>
+</body>
+</html>

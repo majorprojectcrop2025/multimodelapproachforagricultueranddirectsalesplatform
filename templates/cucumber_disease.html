@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cucumber Disease Detector</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(120deg, #f8ffae 0%, #43c6ac 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 30px 15px;
+        }
+        .wrapper {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+        .header-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 35px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+            margin-bottom: 25px;
+        }
+        .header-card h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            color: #14532d;
+        }
+        .header-card p {
+            color: #0f172a;
+            margin-top: 10px;
+        }
+        .upload-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 20px 55px rgba(0, 0, 0, 0.12);
+        }
+        .upload-area {
+            border: 2px dashed #bbf7d0;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #64748b;
+        }
+        .upload-area i {
+            font-size: 2.5rem;
+            color: #16a34a;
+            margin-bottom: 10px;
+        }
+        .submit-button {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #22c55e 0%, #10b981 100%);
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 20px 30px rgba(16,185,129,0.35);
+        }
+        .submit-button:hover {
+            transform: translateY(-2px);
+        }
+        .result-card {
+            margin-top: 25px;
+            padding: 24px;
+            border-radius: 20px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+        }
+        .result-card h2 {
+            margin-top: 0;
+            color: #14532d;
+        }
+        .result-pill {
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 999px;
+            font-weight: 600;
+            margin-right: 12px;
+        }
+        .pill-healthy {
+            background: #bbf7d0;
+            color: #166534;
+        }
+        .pill-diseased {
+            background: #fee2e2;
+            color: #9f1239;
+        }
+        .error-banner {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #b91c1c;
+        }
+        .preview {
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .preview img {
+            width: 260px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            object-fit: cover;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 30px;
+            font-weight: 600;
+            color: #134e4a;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header-card">
+            <h1><i class="fas fa-cucumber" style="color:#16a34a;"></i> Cucumber Disease Detector</h1>
+            <p>Upload a cucumber leaf image to detect diseases such as anthracnose, powdery mildew, gummy stem blight, or confirm a healthy leaf.</p>
+            <p class="threshold-indicator" style="margin-top: 15px; font-weight: 500; color: #14532d;"><i class="fas fa-shield-alt"></i> Confidence Threshold is fixed at 80% (0.80)</p>
+        </div>
+
+        <div class="upload-card">
+            <form method="POST" enctype="multipart/form-data">
+                <label class="upload-area">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drop your image here or click to browse</p>
+                    <input type="file" name="image" accept="image/*" required style="display:none">
+                </label>
+                <button type="submit" class="submit-button">Analyze Leaf</button>
+            </form>
+
+            {% if error %}
+            <div class="error-banner">{{ error }}</div>
+            {% endif %}
+
+            {% if prediction %}
+            <div class="result-card">
+                <h2>Result</h2>
+                {% if prediction.result_message == "Unknown class" %}
+                    <div style="margin: 12px 0;">
+                        <span class="result-pill">{{ prediction.result_message }}</span>
+                    </div>
+                {% else %}
+                    <div style="margin: 12px 0;">
+                        <span class="result-pill {{ 'pill-healthy' if prediction.is_healthy else 'pill-diseased' }}">
+                            {{ 'Healthy' if prediction.is_healthy else 'Diseased' }}
+                        </span>
+                        <strong>{{ prediction.class_name }}</strong>
+                    </div>
+                    <p>Confidence: {{ '%.2f'|format(prediction.confidence * 100) }}%</p>
+                {% endif %}
+                {% if uploaded_filename %}
+                <div class="preview">
+                    <img src="{{ url_for('static', filename=uploaded_filename) }}" alt="Uploaded cucumber leaf">
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+
+        <a href="/crop_disease" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Crop Disease Center
+        </a>
+    </div>
+</body>
+</html>
+

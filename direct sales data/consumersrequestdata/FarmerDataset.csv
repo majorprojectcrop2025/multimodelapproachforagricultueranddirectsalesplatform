@@ -1,0 +1,51 @@
+FarmerID,FarmerName,MobileNumber,EmailID,FarmAddress,CropName,CropVariety,QuantityAvailable,PricePerUnit,CropQuality,CropHealthCheck,DeliveryRangeKM
+F001,Nehmat Bajaj,8348154045238,hanshhora@yahoo.com,"Akola, Karnataka",Beans,Cluster Beans,153,68,Good,Good,19
+F002,Onkar Sandal,3892611456743,jayan67@hotmail.com,"Kadapa, Karnataka",Beans,Green Beans,108,27,Organic,Healthy,22
+F003,Jayesh Lall,0245090867296,lankavardaniya@madan-chakrabarti.com,"Malda, Karnataka",Tomato,Local,284,57,Good,Minor spots,21
+F004,Mohanlal Bhatti,2419467546502,hben@mandal.com,"Guna, Karnataka",Cabbage,Green Cabbage,182,72,Premium,Healthy,30
+F005,Adah Sami,9829811535645,jsami@bhatt-rout.com,"Phagwara, Karnataka",Cabbage,Green Cabbage,278,50,Fresh,Healthy,21
+F006,Gatik Kale,6349642346785,azad17@hotmail.com,"Dindigul, Karnataka",Tomato,Hybrid,196,49,Organic,Minor spots,26
+F007,Jivin Subramanian,0686868144225,osanghvi@yahoo.com,"Surendranagar Dudhrej, Karnataka",Beans,Green Beans,296,21,Premium,Minor spots,27
+F008,Aarna Goyal,8760643623810,vedika58@hotmail.com,"Proddatur, Karnataka",Tomato,Local,263,52,Good,Minor spots,11
+F009,Lakshit Kohli,9188100461256,rsodhi@bajaj.net,"Jamshedpur, Karnataka",Chilli,Byadgi,249,34,Premium,Minor spots,14
+F010,Adira Amble,4675724708844,neysakumar@hotmail.com,"Coimbatore, Karnataka",Tomato,Roma,214,74,Fresh,Healthy,26
+F011,Divij Magar,3571983692837,jayan52@chowdhury.com,"Katni, Karnataka",Onion,White Onion,208,48,Fresh,Good,27
+F012,Khushi Sibal,8973869093351,divyanshkonda@bhardwaj.com,"Serampore, Karnataka",Onion,Red Onion,143,44,Premium,Disease-free,28
+F013,Anika Gill,0643949985276,senguptakhushi@yahoo.com,"Dehradun, Karnataka",Onion,Red Onion,204,43,Good,Healthy,25
+F014,Yuvraj  Shetty,4471900831688,nishith42@gmail.com,"Burhanpur, Karnataka",Beans,Green Beans,216,48,Fresh,Healthy,26
+F015,Anvi Virk,3107976179011,chaudhuridhruv@rege-cheema.org,"Aurangabad, Karnataka",Chilli,Byadgi,196,45,Premium,Minor spots,14
+F016,Parinaaz Jhaveri,5968300968571,amanidubey@ratti-sur.biz,"Haridwar, Karnataka",Cabbage,Green Cabbage,76,66,Premium,Minor spots,20
+F017,Chirag Contractor,6937960919893,jhanvi16@varkey.biz,"Warangal, Karnataka",Tomato,Roma,194,41,Fresh,Minor spots,26
+F018,Mohanlal Madan,6708147082429,shereyashvi@sandal-bhasin.com,"Kulti, Karnataka",Cabbage,Green Cabbage,190,56,Good,Healthy,26
+F019,Hunar Dubey,7455505411442,saranmehul@anne.biz,"Burhanpur, Karnataka",Tomato,Local,67,37,Premium,Healthy,27
+F020,Stuvan Batta,9823762920219,ojas44@sule.com,"Rampur, Karnataka",Beans,Cluster Beans,219,45,Good,Good,25
+F021,Shanaya Bava,0623393398358,neelofargandhi@yahoo.com,"Naihati, Karnataka",Onion,Red Onion,177,22,Premium,Minor spots,18
+F022,Anvi Baria,5797847103703,kalaprerak@dasgupta.org,"Medininagar, Karnataka",Beans,Cluster Beans,136,59,Good,Healthy,14
+F023,Devansh Balay,2927223275984,mbuch@sinha-kulkarni.com,"Pali, Karnataka",Tomato,Hybrid,51,40,Fresh,Minor spots,18
+F024,Shaan Bakshi,5946018127389,tanyaraj@sanghvi.biz,"Kolkata, Karnataka",Tomato,Local,277,71,Premium,Disease-free,12
+F025,Kashvi Bhakta,3334165690112,aarav95@hotmail.com,"Berhampur, Karnataka",Beans,Green Beans,288,27,Good,Healthy,20
+F026,Rania Toor,4283615113966,ngour@yahoo.com,"Visakhapatnam, Karnataka",Beans,Cluster Beans,289,55,Good,Good,25
+F027,Azad Sur,4570891018311,eyogi@hotmail.com,"Rampur, Karnataka",Onion,White Onion,115,45,Premium,Healthy,10
+F028,Shaan Dhillon,7685447153971,sahilbadal@yahoo.com,"Sirsa, Karnataka",Cabbage,Green Cabbage,201,28,Organic,Good,25
+F029,Vaibhav Kamdar,6659869092165,grewalzain@hotmail.com,"Phusro, Karnataka",Tomato,Roma,143,61,Premium,Disease-free,30
+F030,Tarini Bhardwaj,4909045123205,mandershray@gmail.com,"Buxar, Karnataka",Tomato,Local,208,40,Good,Disease-free,12
+F031,Jivin Dass,8619307350440,vbir@hayer-setty.biz,"Maheshtala, Karnataka",Tomato,Cherry Tomato,164,26,Good,Disease-free,12
+F032,Samiha Sami,9268195385063,qghose@sura.com,"Etawah, Karnataka",Onion,Red Onion,220,25,Good,Healthy,17
+F033,Kimaya Kala,2096777728194,dhawanriya@buch-saxena.com,"Chinsurah, Karnataka",Beans,Green Beans,98,27,Organic,Good,28
+F034,Siya Bhatti,9655222525086,hsoni@das.info,"Guwahati, Karnataka",Onion,Red Onion,197,72,Fresh,Healthy,18
+F035,Tanya Bawa,9291810336137,sbasu@rajan-sharma.com,"Rampur, Karnataka",Tomato,Local,226,43,Good,Healthy,11
+F036,Zeeshan Loyal,1278592890520,nirvi93@kumer.com,"Jamnagar, Karnataka",Tomato,Roma,276,78,Fresh,Disease-free,26
+F037,Shray Mandal,8984267536798,wsubramaniam@kale-dutt.com,"Noida, Karnataka",Onion,Red Onion,119,32,Organic,Good,27
+F038,Advik Batta,6289715436137,uratti@deep-mand.net,"Kottayam, Karnataka",Beans,Green Beans,67,30,Premium,Good,28
+F039,Divyansh Jha,8102298704549,manjariwadhwa@rattan.biz,"Raiganj, Karnataka",Cabbage,Green Cabbage,77,21,Premium,Minor spots,16
+F040,Chirag Kaur,8278298567608,aaina34@bhardwaj.com,"Kamarhati, Karnataka",Beans,Cluster Beans,107,69,Fresh,Good,11
+F041,Biju Sood,6250161752413,hchoudhry@gmail.com,"Chinsurah, Karnataka",Tomato,Cherry Tomato,289,29,Fresh,Disease-free,25
+F042,Nehmat Kibe,7635077840816,saira48@mangal.biz,"Bhiwandi, Karnataka",Onion,White Onion,97,62,Good,Disease-free,10
+F043,Ahana  Korpal,4262895706059,anahitadhingra@khurana.com,"Varanasi, Karnataka",Chilli,Green Chilli,158,62,Fresh,Good,21
+F044,Devansh Mallick,3419790107527,jayangara@hotmail.com,"Aurangabad, Karnataka",Chilli,Byadgi,173,37,Good,Healthy,22
+F045,Ishaan Bahri,2225488264924,akarshsha@hotmail.com,"Katihar, Karnataka",Tomato,Cherry Tomato,109,37,Good,Good,18
+F046,Biju Bala,4853644909579,dharjiya@suri.com,"Anantapuram, Karnataka",Beans,Green Beans,264,75,Fresh,Disease-free,15
+F047,Hazel Warrior,9970901077978,wvasa@yahoo.com,"Bharatpur, Karnataka",Onion,White Onion,230,33,Premium,Disease-free,13
+F048,Keya Sagar,0833470247428,ishaanraj@yahoo.com,"Jalna, Karnataka",Onion,White Onion,210,66,Organic,Disease-free,25
+F049,Neysa Bedi,3041342034531,anahigarg@yahoo.com,"Mysore, Karnataka",Cabbage,Green Cabbage,100,38,Organic,Disease-free,11
+F050,Shaan Madan,1185122757260,vihaan38@hotmail.com,"Sambhal, Karnataka",Onion,White Onion,183,77,Good,Healthy,26

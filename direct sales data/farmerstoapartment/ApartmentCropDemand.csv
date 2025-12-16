@@ -1,0 +1,51 @@
+ApartmentID,ApartmentName,ApartmentAddress,ContactPerson,MobileNumber,EmailID,CropWanted,QuantityWanted,MaxPrice,DeliveryPreference
+A001,Green View Apartments,"Mysuru, Karnataka",Mr. Rajesh,9876541122,rajesh@greenview.com,Lettuce,50,55,Drop-off
+A002,Skyline Residency,"Mysuru, Karnataka",Ms. Kavya,9876541123,kavya@skyline.com,Tomato,120,35,Pickup
+A003,Palm Meadows,"Mysuru, Karnataka",Mr. Arvind,9876541124,arvind@palm.com,Cucumber,80,30,Drop-off
+A004,Brigade Harmony,"Mysuru, Karnataka",Ms. Sneha,9876541125,sneha@brigade.com,Carrot,90,40,Drop-off
+A005,Prestige Heights,"Mysuru, Karnataka",Mr. Joseph,9876541126,joseph@prestige.com,Spinach,60,22,Pickup
+A006,Golden Nest Apartments,"Mysuru, Karnataka",Mr. Sagar,9876541127,sagar@goldennest.com,Onion,200,30,Drop-off
+A007,Sri Sai Residency,"Mysuru, Karnataka",Ms. Pooja,9876541128,pooja@srisai.com,Potato,150,25,Pickup
+A008,Lake View Enclave,"Mysuru, Karnataka",Mr. Vinay,9876541129,vinay@lakeview.com,Brinjal,70,35,Drop-off
+A009,Sunrise Apartments,"Mysuru, Karnataka",Mrs. Keerthi,9876541130,keerthi@sunrise.com,Cabbage,100,30,Drop-off
+A010,Royal Residency,"Mysuru, Karnataka",Mr. Sharath,9876541131,sharath@royal.com,Cauliflower,75,38,Pickup
+A011,Eco Homes,"Mysuru, Karnataka",Ms. Anitha,9876541132,anitha@eco.com,Green Peas,55,48,Drop-off
+A012,Krishna Meadows,"Mysuru, Karnataka",Mr. Gautham,9876541133,gautham@krishna.com,Pumpkin,90,30,Pickup
+A013,Blue Moon Apartments,"Mysuru, Karnataka",Mrs. Jaya,9876541134,jaya@bluemoon.com,Radish,65,25,Drop-off
+A014,Garden View Homes,"Mysuru, Karnataka",Mr. Sudhir,9876541135,sudhir@gardenview.com,Beetroot,85,32,Pickup
+A015,Elite Enclave,"Mysuru, Karnataka",Ms. Ritu,9876541136,ritu@elite.com,Chilli,45,55,Drop-off
+A016,Sky Towers,"Mysuru, Karnataka",Mr. Naveen,9876541137,naveen@skytower.com,Papaya,120,45,Pickup
+A017,Ocean Pearl Residency,"Mysuru, Karnataka",Mrs. Shalini,9876541138,shalini@oceanpearl.com,Banana,180,20,Drop-off
+A018,Riverfront Apartments,"Mysuru, Karnataka",Mr. Bharat,9876541139,bharat@riverfront.com,Watermelon,200,18,Pickup
+A019,Hilltop Residency,"Mysuru, Karnataka",Ms. Reshma,9876541140,reshma@hilltop.com,Muskmelon,160,28,Drop-off
+A020,Royal Greens,"Mysuru, Karnataka",Mr. Mahesh,9876541141,mahesh@royalgreens.com,Tomato,110,32,Pickup
+A021,Lake Shore Apartments,"Mysuru, Karnataka",Mrs. Vidya,9876541142,vidya@lakeshore.com,Carrot,85,38,Drop-off
+A022,Green Leaf Enclave,"Mysuru, Karnataka",Mr. Arjun,9876541143,arjun@greenleaf.com,Spinach,70,22,Pickup
+A023,Evergreen Residency,"Mysuru, Karnataka",Ms. Geetha,9876541144,geetha@evergreen.com,Onion,220,28,Drop-off
+A024,Highland Homes,"Mysuru, Karnataka",Mr. Raj,9876541145,raj@highland.com,Potato,200,25,Pickup
+A025,Silver Springs,"Mysuru, Karnataka",Mrs. Lalitha,9876541146,lalitha@silver.com,Ginger,55,80,Drop-off
+A026,Golden Residency,"Mysuru, Karnataka",Mr. Manish,9876541147,manish@golden.com,Garlic,40,150,Pickup
+A027,Pearl Gardens,"Mysuru, Karnataka",Ms. Nisha,9876541148,nisha@pearl.com,Coriander,50,18,Drop-off
+A028,Sai Balaji Enclave,"Mysuru, Karnataka",Mr. Ravi,9876541149,ravi@saibalaji.com,Green Peas,90,42,Pickup
+A029,Royal Orchid Homes,"Mysuru, Karnataka",Mrs. Suma,9876541150,suma@orchid.com,Cucumber,100,27,Drop-off
+A030,Elite Habitat,"Mysuru, Karnataka",Mr. Akash,9876541151,akash@elitehab.com,Beans,70,35,Pickup
+A031,Crown Residency,"Mysuru, Karnataka",Ms. Preethi,9876541152,preethi@crown.com,Brinjal,90,33,Drop-off
+A032,Sunshine Towers,"Mysuru, Karnataka",Mr. Darshan,9876541153,darshan@sunshine.com,Cabbage,120,28,Pickup
+A033,Blue Lotus Homes,"Mysuru, Karnataka",Mrs. Shruthi,9876541154,shruthi@lotus.com,Apple,70,160,Drop-off
+A034,Green Horizon,"Mysuru, Karnataka",Mr. Yash,9876541155,yash@horizon.com,Orange,100,65,Pickup
+A035,City Scape Residency,"Mysuru, Karnataka",Ms. Divya,9876541156,divya@cityscape.com,Tomato,130,30,Drop-off
+A036,SJR Luxuria,"Mysuru, Karnataka",Mr. Mohan,9876541157,mohan@sjr.com,Carrot,75,34,Pickup
+A037,Green Nest Homes,"Mysuru, Karnataka",Mrs. Shobha,9876541158,shobha@greennest.com,Onion,210,27,Drop-off
+A038,Royal Heritage,"Mysuru, Karnataka",Mr. Keshav,9876541159,keshav@heritage.com,Chilli,50,115,Pickup
+A039,Emerald Residency,"Mysuru, Karnataka",Ms. Harini,9876541160,harini@emerald.com,Beetroot,95,30,Drop-off
+A040,Serene Meadows,"Mysuru, Karnataka",Mr. Rohan,9876541161,rohan@serene.com,Lettuce,60,50,Pickup
+A041,Golden Heights,"Mysuru, Karnataka",Ms. Meghana,9876541162,meghana@goldenhts.com,Radish,80,28,Drop-off
+A042,Crystal Park,"Mysuru, Karnataka",Mr. Vinod,9876541163,vinod@crystal.com,Spinach,65,20,Pickup
+A043,Hill Crest Enclave,"Mysuru, Karnataka",Mrs. Anu,9876541164,anu@hillcrest.com,Tomato,100,31,Drop-off
+A044,Skyline Greens,"Mysuru, Karnataka",Mr. Ajith,9876541165,ajith@skyline.com,Green Peas,110,40,Pickup
+A045,Sukruthi Residency,"Mysuru, Karnataka",Ms. Latha,9876541166,latha@sukruthi.com,Onion,230,29,Drop-off
+A046,Green Palace,"Mysuru, Karnataka",Mr. Rakesh,9876541167,rakesh@greenpalace.com,Carrot,85,26,Pickup
+A047,Sun Park Towers,"Mysuru, Karnataka",Mrs. Rekha,9876541168,rekha@sunpark.com,Spinach,75,21,Drop-off
+A048,Vibrant Meadows,"Mysuru, Karnataka",Mr. Sudeep,9876541169,sudeep@vibrant.com,Watermelon,190,20,Pickup
+A049,Prestige Parkside,"Mysuru, Karnataka",Ms. Tanya,9876541170,tanya@parkside.com,Banana,170,22,Drop-off
+A050,Urban Lakes,"Mysuru, Karnataka",Mr. Kishore,9876541171,kishore@urbanlakes.com,Cabbage,110,26,Pickup

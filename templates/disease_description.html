@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Description</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+        }
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-submit-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .form-submit-button:hover {
+            background-color: #0056b3;
+        }
+        .disease-info {
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+            text-align: left;
+        }
+        .disease-info h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .disease-info p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        .disease-info img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Disease Description</h1>
+        <form action="/disease_description" method="POST">
+            <div class="form-group">
+                <label for="disease_name">Select Disease:</label>
+                <select id="disease_name" name="disease_name" required>
+                    {% for disease in disease_names %}
+                        <option value="{{ disease }}">{{ disease }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="form-submit-button">Get Description</button>
+        </form>
+
+        {% if disease_info %}
+            <div class="disease-info">
+                <h2>{{ disease_info.disease_name }}</h2>
+                <p><strong>Description:</strong> {{ disease_info.description }}</p>
+                {% if disease_info.steps != "N/A" %}
+                    <p><strong>Possible Steps:</strong> {{ disease_info.steps }}</p>
+                {% endif %}
+                {% if disease_info.image_url %}
+                    <img src="{{ url_for('static', filename=disease_info.image_url) }}" alt="{{ disease_info.disease_name }} Image">
+                {% endif %}
+            </div>
+        {% elif disease_info is not none %}
+            <p style="color: red; text-align: center;">Disease not found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

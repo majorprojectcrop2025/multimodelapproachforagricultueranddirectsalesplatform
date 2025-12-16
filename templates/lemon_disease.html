@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lemon Disease Detector</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 30px 15px;
+        }
+        .wrapper {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+        .header-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+        .header-card h1 {
+            margin: 0;
+            font-size: 2rem;
+            color: #2c3e50;
+        }
+        .header-card p {
+            color: #6b7c93;
+            margin-top: 10px;
+        }
+        .upload-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+        }
+        .upload-area {
+            border: 2px dashed #d7dde8;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #a0aec0;
+        }
+        .upload-area i {
+            font-size: 2.5rem;
+            color: #f6ad55;
+            margin-bottom: 10px;
+        }
+        .submit-button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            color: #fff;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .submit-button:hover {
+            transform: translateY(-2px);
+        }
+        .result-card {
+            margin-top: 25px;
+            padding: 25px;
+            border-radius: 18px;
+            background: #f0fff4;
+            border: 1px solid #c6f6d5;
+        }
+        .result-card h2 {
+            margin-top: 0;
+            color: #22543d;
+        }
+        .result-pill {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 999px;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+        .pill-healthy {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+        .pill-diseased {
+            background: #fed7d7;
+            color: #9b2c2c;
+        }
+        .error-banner {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            background: #fff5f5;
+            border: 1px solid #feb2b2;
+            color: #c53030;
+        }
+        .preview {
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        .preview img {
+            width: 260px;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            object-fit: cover;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 30px;
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 600;
+        }
+        .back-link i {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header-card">
+            <h1><i class="fas fa-lemon" style="color:#f6ad55;"></i> Lemon Disease Detector</h1>
+            <p>Upload a lemon leaf image to detect common diseases or confirm healthy foliage using our EfficientNet model.</p>
+            <p class="threshold-indicator" style="margin-top: 15px; font-weight: 500; color: #2c3e50;"><i class="fas fa-shield-alt"></i> Confidence Threshold is fixed at 80% (0.80)</p>
+        </div>
+
+        <div class="upload-card">
+            <form method="POST" enctype="multipart/form-data">
+                <label class="upload-area">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drop your image here or click to browse</p>
+                    <input type="file" name="image" accept="image/*" required style="display:none">
+                </label>
+                <button type="submit" class="submit-button">Analyze Leaf</button>
+            </form>
+
+            {% if error %}
+            <div class="error-banner">
+                {{ error }}
+            </div>
+            {% endif %}
+
+            {% if prediction %}
+            <div class="result-card">
+                <h2>Result</h2>
+                {% if prediction.result_message == "Unknown class" %}
+                    <div style="margin: 12px 0;">
+                        <span class="result-pill">{{ prediction.result_message }}</span>
+                    </div>
+                {% else %}
+                    <div style="margin: 12px 0;">
+                        <span class="result-pill {{ 'pill-healthy' if prediction.is_healthy else 'pill-diseased' }}">
+                            {{ 'Healthy' if prediction.is_healthy else 'Diseased' }}
+                        </span>
+                        <strong>{{ prediction.class_name }}</strong>
+                    </div>
+                    <p>Confidence: {{ '%.2f'|format(prediction.confidence * 100) }}%</p>
+                {% endif %}
+                {% if uploaded_filename %}
+                <div class="preview">
+                    <img src="{{ url_for('static', filename=uploaded_filename) }}" alt="Uploaded leaf">
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+
+        <a href="/crop_disease" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Crop Disease Center
+        </a>
+    </div>
+</body>
+</html>
+

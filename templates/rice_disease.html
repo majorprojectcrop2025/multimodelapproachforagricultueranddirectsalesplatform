@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rice Leaf Disease Detection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            margin: 30px auto;
+            text-align: center;
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        h1 i {
+            margin-right: 15px;
+            color: #20c997;
+        }
+        .upload-section {
+            margin-top: 30px;
+            padding: 30px;
+            border: 2px dashed #9be2d4;
+            border-radius: 15px;
+            background-color: #f0fdfc;
+            transition: all 0.3s ease;
+        }
+        .upload-section:hover {
+            border-color: #20c997;
+            background-color: #e0f8f5;
+        }
+        .upload-btn-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .btn-upload {
+            border: 2px solid #20c997;
+            color: white;
+            background-color: #20c997;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(32, 201, 151, 0.3);
+        }
+        .btn-upload:hover {
+            background-color: #17a2b8;
+            box-shadow: 0 6px 20px rgba(32, 201, 151, 0.5);
+            transform: translateY(-2px);
+        }
+        .upload-btn-wrapper input[type=file] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .file-name {
+            margin-top: 15px;
+            font-size: 1rem;
+            color: #555;
+            font-weight: 500;
+        }
+        .result-card {
+            margin-top: 40px;
+            background: linear-gradient(135deg, #e6f7ff 0%, #cceeff 100%);
+            border-left: 8px solid #007bff;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0, 123, 255, 0.2);
+            text-align: left;
+        }
+        .result-card h2 {
+            color: #007bff;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .result-card p {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #444;
+        }
+        .result-card strong {
+            color: #2c3e50;
+        }
+        .error-message {
+            color: #dc3545;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+        .preview img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 25px;
+            border: 1px solid #ddd;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .btn-back-home {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 25px;
+            background-color: #6c757d; /* Grey for back button */
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+        }
+        .btn-back-home:hover {
+            background-color: #5a6268;
+            box-shadow: 0 6px 20px rgba(108, 117, 125, 0.5);
+        }
+        .result-pill {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-right: 10px;
+            font-size: 0.95rem;
+        }
+
+        .pill-healthy {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #28a745;
+        }
+
+        .pill-diseased {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #dc3545;
+        }
+
+        .threshold-indicator {
+            background-color: #e9ecef;
+            color: #495057;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+        }
+        .threshold-indicator i {
+            margin-right: 8px;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-seedling"></i> Rice Leaf Disease Detection</h1>
+        <div class="upload-section">
+            <form id="upload-form" action="/rice_disease" method="post" enctype="multipart/form-data">
+                <p>Upload an image of a rice leaf to detect diseases.</p>
+                <div class="upload-btn-wrapper">
+                    <button class="btn-upload"><i class="fas fa-upload"></i> Choose Image</button>
+                    <input type="file" name="image" id="image-upload" accept="image/*">
+                </div>
+                <p id="file-name-display" class="file-name"></p>
+                <button type="submit" class="btn-upload" style="margin-top: 20px;"><i class="fas fa-paper-plane"></i> Predict Disease</button>
+            </form>
+        </div>
+
+        {% if error %}
+            <p class="error-message">{{ error }}</p>
+        {% endif %}
+
+        {% if prediction %}
+        <div class="result-card">
+            <h2>Result</h2>
+            {% if prediction.result_message == "Unknown class" %}
+                <div style="margin: 12px 0;">
+                    <span class="result-pill">{{ prediction.result_message }}</span>
+                </div>
+            {% else %}
+                <div style="margin: 12px 0;">
+                    <span class="result-pill {{ 'pill-healthy' if prediction.is_healthy else 'pill-diseased' }}">
+                        {{ 'Healthy' if prediction.is_healthy else 'Diseased' }}
+                    </span>
+                    <strong>{{ prediction.class_name }}</strong>
+                </div>
+                <p>Confidence: {{ '%.2f'|format(prediction.confidence * 100) }}%</p>
+            {% endif %}
+            <p class="threshold-indicator" style="margin-top: 15px; font-weight: 500; color: #14532d;"><i class="fas fa-shield-alt"></i> Confidence Threshold is fixed at 80% (0.80)</p>
+            {% if uploaded_filename %}
+            <div class="preview">
+                <img src="{{ url_for('static', filename=uploaded_filename) }}" alt="Uploaded rice leaf">
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+        <a href="/particular_disease_detection" class="btn-back-home">Back to Particular Disease Detection</a>
+    </div>
+
+    <script>
+        document.getElementById('image-upload').addEventListener('change', function() {
+            const fileName = this.files[0] ? this.files[0].name : '';
+            document.getElementById('file-name-display').textContent = fileName;
+        });
+    </script>
+</body>
+</html>

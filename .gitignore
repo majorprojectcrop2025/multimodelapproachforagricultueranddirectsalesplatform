@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual env
+venv/
+.env/
+
+# Model files and data
+*.pth
+*.pt
+*.pkl
+*.pickle
+*.h5
+*.ckpt
+*.onnx
+data/
+datasets/
+
+# IDE
+.vscode/
+.idea/
+*.log

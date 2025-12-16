@@ -1,0 +1,51 @@
+FarmerID,FarmerName,MobileNumber,EmailID,FarmAddress,CropName,CropVariety,QuantityAvailable,PricePerUnit,CropQuality,CropHealthCheck,DeliveryRangeKM
+F001,Ramesh Kumar,9876543201,ramesh1@gmail.com,"Mysuru, Karnataka",Lettuce,Green Lettuce,100,50,Organic,Disease-free,20
+F002,Manjunath Gowda,9876543202,manju@gmail.com,"Mysuru, Karnataka",Tomato,Hybrid Tomato,200,30,Fresh,Disease-free,15
+F003,Pradeep Shetty,9876543203,pradeep@gmail.com,"Mysuru, Karnataka",Cucumber,English Cucumber,150,25,Organic,Disease-free,18
+F004,Chandru N,9876543204,chandru@gmail.com,"Mysuru, Karnataka",Carrot,French Beans,120,40,Fresh,Disease-free,12
+F005,Mahesh R,9876543205,mahesh@gmail.com,"Mysuru, Karnataka",Spinach,Ooty Carrot,180,35,Organic,Disease-free,25
+F006,Sharath S,9876543206,sharath@gmail.com,"Mysuru, Karnataka",Onion,Green Spinach,90,20,Fresh,Disease-free,10
+F007,Girish Patil,9876543207,girish@gmail.com,"Mysuru, Karnataka",Potato,Red Onion,300,28,Fresh,Disease-free,30
+F008,Suresh B,9876543208,suresh@gmail.com,"Mysuru, Karnataka",Brinjal,White Potato,250,22,Fresh,Disease-free,20
+F009,Kiran Kumar,9876543209,kiran@gmail.com,"Mysuru, Karnataka",Cabbage,Purple Brinjal,140,32,Organic,Disease-free,18
+F010,Naveen R,9876543210,naveen@gmail.com,"Mysuru, Karnataka",Cauliflower,Green Cabbage,180,26,Fresh,Disease-free,16
+F011,Raghavendra,9876543211,raghu@gmail.com,"Mysuru, Karnataka",Green Peas,White Cauliflower,160,34,Organic,Disease-free,22
+F012,Harish Gowda,9876543212,harish@gmail.com,"Mysuru, Karnataka",Pumpkin,Snow Peas,75,45,Fresh,Disease-free,12
+F013,Ashok Kumar,9876543213,ashok@gmail.com,"Mysuru, Karnataka",Radish,Yellow Pumpkin,140,24,Fresh,Disease-free,28
+F014,Lokesh M,9876543214,lokesh@gmail.com,"Mysuru, Karnataka",Beetroot,White Radish,130,20,Organic,Disease-free,14
+F015,Santosh P,9876543215,santosh@gmail.com,"Mysuru, Karnataka",Chilli,Red Beetroot,170,27,Fresh,Disease-free,10
+F016,Deepak R,9876543216,deepak@gmail.com,"Mysuru, Karnataka",Papaya,Green Chilli,115,50,Fresh,Disease-free,18
+F017,Anil Naik,9876543217,anil@gmail.com,"Mysuru, Karnataka",Banana,Red Lady Papaya,200,35,Organic,Disease-free,30
+F018,Rajendra M,9876543218,rajendra@gmail.com,"Mysuru, Karnataka",Watermelon,Robusta Banana,240,18,Fresh,Disease-free,22
+F019,Vinod Patil,9876543219,vinod@gmail.com,"Mysuru, Karnataka",Muskmelon,Striped Watermelon,320,16,Fresh,Disease-free,25
+F020,Basavaraj S,9876543220,basavaraj@gmail.com,"Mysuru, Karnataka",Tomato,Yellow Muskmelon,210,28,Fresh,Disease-free,20
+F021,Jagadish K,9876543221,jagadish@gmail.com,"Mysuru, Karnataka",Carrot,Country Tomato,190,33,Fresh,Disease-free,16
+F022,Pavankumar,9876543222,pavan@gmail.com,"Mysuru, Karnataka",Spinach,Local Carrot,110,32,Organic,Disease-free,15
+F023,Sudeep H,9876543223,sudeep@gmail.com,"Mysuru, Karnataka",Onion,Red Spinach,80,22,Fresh,Disease-free,10
+F024,Sunil Gowda,9876543224,sunil@gmail.com,"Mysuru, Karnataka",Potato,Bellary Onion,330,26,Fresh,Disease-free,26
+F025,Sathish B,9876543225,sathish@gmail.com,"Mysuru, Karnataka",Ginger,Desi Potato,260,20,Fresh,Disease-free,18
+F026,Varun Kumar,9876543226,varun@gmail.com,"Mysuru, Karnataka",Garlic,Fresh Ginger,95,72,Organic,Disease-free,22
+F027,Bharath R,9876543227,bharath@gmail.com,"Mysuru, Karnataka",Coriander,Local Garlic,85,160,Fresh,Disease-free,16
+F028,Rohit Shetty,9876543228,rohit@gmail.com,"Mysuru, Karnataka",Green Peas,Leafy Coriander,70,15,Fresh,Disease-free,10
+F029,Chethan P,9876543229,chethan@gmail.com,"Mysuru, Karnataka",Cucumber,Green Peas,130,40,Fresh,Disease-free,18
+F030,Harsha N,9876543230,harsha@gmail.com,"Mysuru, Karnataka",Beans,Short Cucumber,140,24,Fresh,Disease-free,14
+F031,Srinivas R,9876543231,srini@gmail.com,"Mysuru, Karnataka",Brinjal,Cluster Beans,115,38,Fresh,Disease-free,12
+F032,Vedanth S,9876543232,vedanth@gmail.com,"Mysuru, Karnataka",Cabbage,Green Brinjal,130,34,Organic,Disease-free,20
+F033,Yogesh K,9876543233,yogesh@gmail.com,"Mysuru, Karnataka",Apple,Red Cabbage,170,44,Fresh,Disease-free,22
+F034,Ajay Gowda,9876543234,ajay@gmail.com,"Mysuru, Karnataka",Orange,Gala Apple,90,180,Fresh,Disease-free,15
+F035,Karthik M,9876543235,karthik@gmail.com,"Mysuru, Karnataka",Tomato,Coorg Orange,150,70,Fresh,Disease-free,28
+F036,Sharukh P,9876543236,sharukh@gmail.com,"Mysuru, Karnataka",Carrot,Hybrid Tomato,220,28,Fresh,Disease-free,20
+F037,Nandish R,9876543237,nandish@gmail.com,"Mysuru, Karnataka",Onion,Red Carrot,140,30,Organic,Disease-free,18
+F038,Yathish,9876543238,yathish@gmail.com,"Mysuru, Karnataka",Chilli,White Onion,310,27,Fresh,Disease-free,25
+F039,Vishwanath,9876543239,vishwa@gmail.com,"Mysuru, Karnataka",Beetroot,Green Grapes,200,60,Fresh,Disease-free,30
+F040,Amith R,9876543240,amith@gmail.com,"Mysuru, Karnataka",Lettuce,Mini Watermelon,270,20,Fresh,Disease-free,20
+F041,Ravindra P,9876543241,ravindra@gmail.com,"Mysuru, Karnataka",Radish,Jyoti Potato,290,22,Fresh,Disease-free,22
+F042,Nikhil Shetty,9876543242,nikhil@gmail.com,"Mysuru, Karnataka",Spinach,Fresh Coconut,350,35,Organic,Disease-free,30
+F043,Chandresh,9876543243,chandresh@gmail.com,"Mysuru, Karnataka",Tomato,Roma Tomato,210,29,Fresh,Disease-free,18
+F044,Pavan R,9876543244,pavanr@gmail.com,"Mysuru, Karnataka",Green Peas,Red Chilli,90,120,Fresh,Disease-free,25
+F045,Murali S,9876543245,murali@gmail.com,"Mysuru, Karnataka",Onion,Local Beetroot,160,25,Fresh,Disease-free,14
+F046,Kishor,9876543246,kishor@gmail.com,"Mysuru, Karnataka",Carrot,Red Lettuce,95,55,Organic,Disease-free,12
+F047,Abhishek,9876543247,abhishek@gmail.com,"Mysuru, Karnataka",Spinach,Palak Spinach,80,18,Fresh,Disease-free,10
+F048,Rohith,9876543248,rohith@gmail.com,"Mysuru, Karnataka",Watermelon,Red Radish,120,23,Fresh,Disease-free,16
+F049,Sameer,9876543249,sameer@gmail.com,"Mysuru, Karnataka",Banana,Runner Beans,140,36,Fresh,Disease-free,20
+F050,Pramod,9876543250,pramod@gmail.com,"Mysuru, Karnataka",Cabbage,Local Cabbage,180,25,Fresh,Disease-free,18

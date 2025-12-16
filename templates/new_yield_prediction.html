@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Yield Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+        }
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-submit-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        .form-submit-button:hover {
+            background-color: #45a049;
+        }
+        .prediction-result {
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+            text-align: center;
+        }
+        .prediction-result h2 {
+            color: #333;
+        }
+        .prediction-result p {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>New Yield Prediction</h1>
+        <form action="/new_yield_prediction" method="POST">
+            {% if new_yield_error %}
+                <p style="color: red; font-weight: bold;">{{ new_yield_error }}</p>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="state_name">State Name:</label>
+                <select id="state_name" name="state_name" required>
+                    {% for option in new_categorical_options.State_Name %}
+                    <option value="{{ option }}">{{ option }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="N">Nitrogen (N):</label>
+                <input type="number" step="any" id="N" name="N" required>
+            </div>
+
+            <div class="form-group">
+                <label for="P">Phosphorus (P):</label>
+                <input type="number" step="any" id="P" name="P" required>
+            </div>
+
+            <div class="form-group">
+                <label for="K">Potassium (K):</label>
+                <input type="number" step="any" id="K" name="K" required>
+            </div>
+
+            <div class="form-group">
+                <label for="pH">pH Value:</label>
+                <input type="number" step="any" id="pH" name="pH" required>
+            </div>
+
+            <div class="form-group">
+                <label for="rainfall">Rainfall (mm):</label>
+                <input type="number" step="any" id="rainfall" name="rainfall" required>
+            </div>
+
+            <div class="form-group">
+                <label for="temperature">Temperature (°C):</label>
+                <input type="number" step="any" id="temperature" name="temperature" required>
+            </div>
+
+            <div class="form-group">
+                <label for="are-in_hectares">Area (in hectares):</label>
+                <input type="number" step="any" id="are-in_hectares" name="are-in_hectares" required>
+            </div>
+
+            <div class="form-group">
+                <label for="crop_type">Crop Type:</label>
+                <select id="crop_type" name="crop_type" required>
+                    {% for option in new_categorical_options.Crop_Type %}
+                    <option value="{{ option }}">{{ option }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="crop">Crop:</label>
+                <select id="crop" name="crop" required>
+                    {% for option in new_categorical_options.Crop %}
+                    <option value="{{ option }}">{{ option }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="form-submit-button">Predict Yield</button>
+        </form>
+
+        {% if new_yield_predictions is not none and not new_yield_error %}
+            <div class="prediction-result">
+                <h2>Predicted Yield:</h2>
+                <p>{{ new_yield_predictions | round(2) }} tons</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
+

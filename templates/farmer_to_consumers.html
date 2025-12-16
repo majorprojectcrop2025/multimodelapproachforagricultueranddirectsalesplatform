@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer to Consumers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            margin: 0;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            max-width: 800px;
+            width: 90%;
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: #333;
+            background-color: #f8f8f8;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007BBF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13.2-5.4H18.6c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%204.7%201.7%209.1%205.2%2012.7l139.3%20139.3c5%205%2011.8%207.8%2017.6%207.8s12.6-2.8%2017.6-7.8l139.3-139.3c3.5-3.6%205.2-8%205.2-12.7%200-4.7-1.7-9.1-5.2-12.7z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right .7em top 50%, 0 0;
+            background-size: .65em auto, 100%;
+        }
+        button {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            margin-top: 20px;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.5);
+        }
+        .results-container {
+            margin-top: 30px;
+            text-align: left;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            padding-top: 20px;
+        }
+        .result-item {
+            background: linear-gradient(135deg, #e0ffe0 0%, #c0ffd0 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            color: #2c3e50;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease-in-out;
+        }
+        .result-item:hover {
+            transform: translateY(-5px);
+        }
+        .result-item h3 {
+            margin-top: 0;
+            color: #28a745; /* A vibrant green for consumer details */
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #28a745;
+            padding-bottom: 10px;
+        }
+        .result-item h3:last-of-type {
+            color: #007bff; /* A distinct blue for farmer offers */
+            border-bottom: 2px solid #007bff;
+        }
+        .result-item p {
+            margin-bottom: 8px;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .result-item p strong {
+            color: #333;
+        }
+        .result-item-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px 20px; /* Row gap and column gap */
+        }
+        .result-item-content p {
+            flex: 1 1 calc(50% - 10px); /* Two columns, with a gap */
+            margin-bottom: 0;
+        }
+        /* Adjust for smaller screens */
+        @media (max-width: 600px) {
+            .result-item-content p {
+                flex: 1 1 100%; /* Single column on small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Farmer to Consumers</h1>
+        <form action="/farmer_to_consumers" method="POST">
+            <div class="form-group">
+                <label for="CropName"><i class="fas fa-seedling"></i> Select Crop Name:</label>
+                <select id="CropName" name="CropName" required>
+                    <option value="">--Select a Crop--</option>
+                    {% for crop in crop_names %}
+                        <option value="{{ crop }}" {% if selected_crop_name == crop %}selected{% endif %}>{{ crop }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit"><i class="fas fa-search"></i> Find Matches</button>
+        </form>
+
+        <div class="results-container">
+            {% if matches %}
+                <h2>Matching Consumer Requests:</h2>
+                {% for match in matches %}
+                    <div class="result-item">
+                        <h3>Consumer: {{ match['ConsumerName'] }} (ID: {{ match['ConsumerID'] }})</h3>
+                        <div class="result-item-content">
+                            <p><strong>Consumer Mobile:</strong> {{ match['MobileNumber'] }}</p>
+                            <p><strong>Consumer Email:</strong> {{ match['EmailID'] }}</p>
+                            <p><strong>Consumer Crop Needed:</strong> {{ match['CropNeeded'] }}</p>
+                            <p><strong>Consumer Quantity Needed:</strong> {{ match['QuantityNeeded'] }}</p>
+                            <p><strong>Consumer Max Price:</strong> {{ match['MaxPrice'] }}</p>
+                            <p><strong>Consumer Delivery Preference:</strong> {{ match['DeliveryPreference'] }}</p>
+                            <p><strong>Consumer Address:</strong> {{ match['Address'] }}</p>
+                        </div>
+                        <div class="result-item-content">
+                        <p><strong>Farmer:</strong> {{ match['FarmerName'] }}</p>
+                        <p><strong>Farmer Crop Name:</strong> {{ match['CropName'] }}</p>
+                        <p><strong>Farmer Crop Variety:</strong> {{ match['CropVariety'] }}</p>
+                        <p><strong>Farmer Quantity Available:</strong> {{ match['QuantityAvailable'] }}</p>
+                        <p><strong>Farmer Price Per Unit:</strong> {{ match['PricePerUnit'] }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% elif request.method == 'POST' %}
+                <p>No matching consumer requests found based on your selection.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
+

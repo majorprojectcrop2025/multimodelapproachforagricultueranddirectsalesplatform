@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Yield Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+        }
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="number"] {
+            width: calc(100% - 22px); /* Adjust for padding and border */
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-submit-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        .form-submit-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="color: #4CAF50;">Crop Yield Prediction</h1>
+        <form action="/yield_prediction" method="POST">
+            {% if yield_error %}
+                <p style="color: red; font-weight: bold;">{{ yield_error }}</p>
+            {% endif %}
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <select id="location" name="location" required>
+                    {% for option in categorical_options.Location %}
+                    <option value="{{ option }}">{{ option }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="area">Area (in acres):</label>
+                <input type="number" step="any" id="area" name="area" required>
+            </div>
+
+            <div class="form-group">
+                <label for="rainfall">Rainfall (mm):</label>
+                <input type="number" step="any" id="rainfall" name="rainfall" required>
+            </div>
+
+            <div class="form-group">
+                <label for="temperature">Temperature (°C):</label>
+                <input type="number" step="any" id="temperature" name="temperature" required>
+            </div>
+
+            <div class="form-group">
+                <label for="soil_type">Soil Type:</label>
+                <select id="soil_type" name="soil_type" required>
+                    {% for option in categorical_options['Soil type'] %}
+                    <option value="{{ option }}">{{ option }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="irrigation">Irrigation:</label>
+                <select id="irrigation" name="irrigation" required>
+                    {% for option in categorical_options.Irrigation %}
+                    <option value="{{ option }}">{{ option }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="humidity">Humidity (%):</label>
+                <input type="number" step="any" id="humidity" name="humidity" required>
+            </div>
+
+            <div class="form-group">
+                <label for="crops">Crops:</label>
+                <select id="crops" name="crops" required>
+                    {% for option in categorical_options.Crops %}
+                    <option value="{{ option }}">{{ option }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="price">Price:</label>
+                <input type="number" step="any" id="price" name="price" required>
+            </div>
+
+            <div class="form-group">
+                <label for="season">Season:</label>
+                <select id="season" name="season" required>
+                    {% for option in categorical_options.Season %}
+                    <option value="{{ option }}">{{ option }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="form-submit-button">Predict Yield</button>
+        </form>
+
+        {% if yield_predictions and not yield_error %}
+            <h2>Yield Prediction Results:</h2>
+            <p>KNN Prediction: {{ yield_predictions.knn | round(2) }}</p>
+            <p>XGBoost Prediction: {{ yield_predictions.xgboost | round(2) }}</p>
+            <p>K-Means Cluster Prediction: {{ yield_predictions.kmeans_cluster | round(2) }}</p>
+            <h3>Final Ensemble Yield: {{ yield_predictions.final_ensemble_yield | round(2) }}</h3>
+        {% endif %}
+    </div>
+</body>
+</html>

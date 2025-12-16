@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriTech Solutions - Plant Disease Detection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e0f2f7 0%, #c8e6c9 100%); /* Light blue-green gradient */
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        h1 {
+            color: #2e7d32; /* Darker green for main title */
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.8rem;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        form {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+            border: 1px solid #eee;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #388e3c; /* A strong green */
+            font-size: 1.1rem;
+        }
+
+        input[type="file"] {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #c8e6c9;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            background-color: #e8f5e9;
+            color: #333;
+        }
+
+        input[type="file"]::file-selector-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            margin-right: 15px;
+            transition: background-color 0.2s ease;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            background-color: #388e3c;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.2);
+            transition: all 0.3s ease;
+            margin-top: 20px; /* Give some space */
+        }
+
+        button[type="submit"]:hover {
+            background-color: #388e3c;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(76, 175, 80, 0.3);
+        }
+        .threshold-indicator {
+            text-align: center;
+            color: #4CAF50;
+            font-weight: 600;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            background-color: #e8f5e9;
+            border-radius: 10px;
+            display: inline-block;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .threshold-indicator i {
+            margin-right: 8px;
+            color: #2e7d32;
+        }
+
+        .main-title {
+            font-size: 3rem;
+            color: #1b5e20;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .main-title i {
+            margin-right: 15px;
+            color: #388e3c;
+        }
+
+        .result-thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .final-prediction-card {
+            background: linear-gradient(145deg, #d4edda 0%, #c3e6cb 100%); /* Even more prominent green */
+            border: 3px solid #28a745;
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 50px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transform: scale(1.05);
+            transition: all 0.4s ease;
+        }
+
+        .final-prediction-card h2 {
+            color: #1a521a; /* Very dark green */
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #6fbb73;
+            padding-bottom: 15px;
+        }
+
+        .final-prediction-thumbnail {
+            max-width: 200px;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border: 2px solid #a5d6a7;
+        }
+
+        .final-prediction-card p {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .final-prediction-card p strong {
+            color: #0d3b0d;
+        }
+
+        .final-class {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #1b5e20;
+        }
+
+        .final-confidence {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #388e3c;
+        }
+
+        .color-coded-alert {
+            padding: 18px 25px;
+            border-radius: 12px;
+            margin-top: 30px;
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .color-coded-alert.status-healthy {
+            background-color: #28a745;
+            box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .color-coded-alert.status-diseased {
+            background-color: #dc3545;
+            box-shadow: 0 6px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        .color-coded-alert.status-unknown {
+            background-color: #ffc107;
+            box-shadow: 0 6px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        .color-coded-alert i {
+            font-size: 1.8rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-card, .final-prediction-card {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .loading-spinner-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .loading-spinner {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #4CAF50;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="main-title"><i class="fas fa-leaf"></i> Plant Disease Detection</h1>
+        <form action="/disease_detection" method="post" enctype="multipart/form-data" id="upload-form">
+            <div class="form-group">
+                <label for="uploaded_image"><i class="fas fa-upload"></i> Upload a Plant Image:</label>
+                <input type="file" id="uploaded_image" name="uploaded_image" accept="image/*">
+            </div>
+            <p class="threshold-indicator"><i class="fas fa-shield-alt"></i> Confidence Threshold is fixed at 60% (0.60)</p>
+            <button type="submit"><i class="fas fa-microscope"></i> Predict Disease</button>
+        </form>
+
+        {% if uploaded_filename %}
+        <div class="image-preview-card" id="uploaded-image-preview-card">
+            <h2>Uploaded Image Preview</h2>
+            <img src="{{ url_for('static', filename=uploaded_filename) }}" alt="Uploaded Image for Prediction" id="uploaded-image-preview">
+            <p><strong>File Name:</strong> <span id="image-file-name">{{ uploaded_filename.split('/')[-1] }}</span></p>
+            <p><strong>File Size:</strong> <span id="image-file-size">N/A</span></p> <!-- Will be filled by JavaScript -->
+        </div>
+        {% endif %}
+
+        {% if error_message %}
+            <div class="error-message">{{ error_message }}</div>
+        {% endif %}
+
+        {% if result %}
+        <div class="result">
+            <h2>Plant Disease Prediction Results</h2>
+            <div class="results-grid">
+                {% for model_name, prediction in result.items() %}
+                {% if model_name != 'Ensemble (Majority Voting)' %}
+                <div class="result-card">
+                    <h3>Model: {{ model_name }}</h3>
+                    <p><strong>Predicted Class:</strong> {{ prediction[0] }} <span class="status-badge status-{{ prediction[0].split('__')[-1].lower() if 'healthy' in prediction[0].lower() else ('unknown' if prediction[0] == 'Unknown class – result not found' else 'diseased') }}">{{ prediction[0].split('__')[-1].replace('_healthy', '').capitalize() if 'healthy' in prediction[0].lower() else ('Unknown' if prediction[0] == 'Unknown class – result not found' else 'Diseased') }}</span></p>
+                    <p><strong>Confidence:</strong> {{ "%.2f%%" | format(prediction[1] * 100) }}</p>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+            <!-- Final Prediction Section -->
+            {% if result and 'Ensemble (Soft Voting)' in result %}
+            <div class="final-prediction-card">
+                <h2>Final Prediction (Soft Voting)</h2>
+                {% set final_prediction = result['Ensemble (Soft Voting)'] %}
+                <img src="{{ url_for('static', filename=uploaded_filename) }}" alt="Final Prediction Image" class="final-prediction-thumbnail">
+                <p class="final-class"><strong>Disease:</strong> {{ final_prediction[0] }} <span class="status-badge status-{{ final_prediction[0].split('__')[-1].lower() if 'healthy' in final_prediction[0].lower() else ('unknown' if final_prediction[0] == 'Unknown class – result not found' else 'diseased') }}">{{ final_prediction[0].split('__')[-1].replace('_healthy', '').capitalize() if 'healthy' in final_prediction[0].lower() else ('Unknown' if final_prediction[0] == 'Unknown class – result not found' else 'Diseased') }}</span></p>
+                <p class="final-confidence"><strong>Confidence:</strong> {{ "%.2f%%" | format(final_prediction[1] * 100) }}</p>
+                <div class="color-coded-alert status-{{ final_prediction[0].split('__')[-1].lower() if 'healthy' in final_prediction[0].lower() else ('unknown' if final_prediction[0] == 'Unknown class – result not found' else 'diseased') }}">
+                    {% if 'healthy' in final_prediction[0].lower() %}
+                        <p><i class="fas fa-check-circle"></i> This plant appears healthy!</p>
+                    {% elif final_prediction[0] == 'Unknown class – result not found' %}
+                        <p><i class="fas fa-question-circle"></i> We are uncertain about this image or it might not be a plant. Please try another image.</p>
+                    {% else %}
+                        <p><i class="fas fa-exclamation-triangle"></i> This plant is likely diseased. Consider checking the recommended steps.</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Hard Voting Prediction Section -->
+            {% if result and 'Ensemble (Hard Voting)' in result %}
+            <div class="final-prediction-card">
+                <h2>Final Prediction (Hard Voting)</h2>
+                <p class="voting-description">Each model gives one class, and the final class is the most frequent class (mode).</p>
+                {% set final_prediction_hard = result['Ensemble (Hard Voting)'] %}
+                <img src="{{ url_for('static', filename=uploaded_filename) }}" alt="Final Prediction Image" class="final-prediction-thumbnail">
+                <p class="final-class"><strong>Disease:</strong> {{ final_prediction_hard[0] }} <span class="status-badge status-{{ final_prediction_hard[0].split('__')[-1].lower() if 'healthy' in final_prediction_hard[0].lower() else ('unknown' if final_prediction_hard[0] == 'Unknown class – result not found' else 'diseased') }}">{{ final_prediction_hard[0].split('__')[-1].replace('_healthy', '').capitalize() if 'healthy' in final_prediction_hard[0].lower() else ('Unknown' if final_prediction_hard[0] == 'Unknown class – result not found' else 'Diseased') }}</span></p>
+                <p class="final-confidence"><strong>Confidence:</strong> {{ "%.2f%%" | format(final_prediction_hard[1] * 100) }}</p>
+                <div class="color-coded-alert status-{{ final_prediction_hard[0].split('__')[-1].lower() if 'healthy' in final_prediction_hard[0].lower() else ('unknown' if final_prediction_hard[0] == 'Unknown class – result not found' else 'diseased') }}">
+                    {% if 'healthy' in final_prediction_hard[0].lower() %}
+                        <p><i class="fas fa-check-circle"></i> This plant appears healthy!</p>
+                    {% elif final_prediction_hard[0] == 'Unknown class – result not found' %}
+                        <p><i class="fas fa-question-circle"></i> We are uncertain about this image or it might not be a plant. Please try another image.</p>
+                    {% else %}
+                        <p><i class="fas fa-exclamation-triangle"></i> This plant is likely diseased. Consider checking the recommended steps.</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+
+    <div id="loading-spinner-overlay" class="loading-spinner-overlay" style="display: none;">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadedImageInput = document.getElementById('uploaded_image');
+            const uploadedImagePreviewCard = document.getElementById('uploaded-image-preview-card');
+            const uploadedImagePreview = document.getElementById('uploaded-image-preview');
+            const imageFileName = document.getElementById('image-file-name');
+            const imageFileSize = document.getElementById('image-file-size');
+            const uploadForm = document.getElementById('upload-form');
+            const loadingSpinnerOverlay = document.getElementById('loading-spinner-overlay');
+
+            uploadedImageInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        uploadedImagePreview.src = e.target.result;
+                        uploadedImagePreviewCard.style.display = 'block'; // Show the card
+                    };
+                    reader.readAsDataURL(file);
+
+                    imageFileName.textContent = file.name;
+                    imageFileSize.textContent = (file.size / 1024).toFixed(2) + ' KB';
+                } else {
+                    uploadedImagePreview.src = "{{ url_for('static', filename='placeholder.png') }}";
+                    uploadedImagePreviewCard.style.display = 'none'; // Hide the card if no file
+                    imageFileName.textContent = 'N/A';
+                    imageFileSize.textContent = 'N/A';
+                }
+            });
+
+            // Initial state: hide the preview card if no image is uploaded
+            if (!uploadedImagePreview.src || uploadedImagePreview.src.includes('placeholder.png')) {
+                uploadedImagePreviewCard.style.display = 'none';
+            }
+
+            uploadForm.addEventListener('submit', function() {
+                loadingSpinnerOverlay.style.display = 'flex';
+            });
+
+            // Hide spinner if there's an error or results are shown on page load
+            {% if error_message or result %}
+                loadingSpinnerOverlay.style.display = 'none';
+            {% endif %}
+        });
+    </script>
+</body>
+</html>
