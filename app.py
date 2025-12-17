@@ -410,8 +410,16 @@ def ensemble_predict(image_path, confidence_threshold=0.60):
     ensemble_confidence = score.item()
     ensemble_predicted_class = class_names[pred_idx.item()]
 
+    # Debug: Print confidence for troubleshooting
+    print(f"Soft Voting - Predicted Class: {ensemble_predicted_class}, Confidence: {ensemble_confidence:.4f}, Threshold: {confidence_threshold}")
+
+    # For soft voting, use a higher threshold to filter out non-plant images (like human photos)
+    # Averaging probabilities across models reduces max confidence, but we need to be strict
+    # to avoid false positives from unknown images
+    soft_voting_threshold = 0.50  # 50% threshold for soft voting (stricter to filter non-plant images)
+    
     # Check if confidence is above threshold
-    if ensemble_confidence < confidence_threshold:
+    if ensemble_confidence < soft_voting_threshold:
         final_prediction_message = "Unknown class – result not found"
         results["Ensemble (Soft Voting)"] = (final_prediction_message, ensemble_confidence)
     else:
@@ -422,7 +430,14 @@ def ensemble_predict(image_path, confidence_threshold=0.60):
     hard_vote_class, hard_vote_count = vote_counts.most_common(1)[0]
     hard_vote_confidence = sum(confidences[hard_vote_class]) / len(confidences[hard_vote_class]) if confidences[hard_vote_class] else 0.0
 
-    if hard_vote_confidence < confidence_threshold:
+    # For hard voting, check if majority of models agree (at least 3 out of 4 models)
+    # If strong majority agrees, use that prediction
+    majority_agreement = hard_vote_count >= 3  # At least 3 out of 4 models agree (strong consensus)
+    
+    # Use a threshold based on agreement level - stricter to filter non-plant images
+    hard_voting_threshold = 0.40 if majority_agreement else confidence_threshold
+    
+    if hard_vote_confidence < hard_voting_threshold and not majority_agreement:
         hard_vote_message = "Unknown class – result not found"
         results["Ensemble (Hard Voting)"] = (hard_vote_message, hard_vote_confidence)
     else:
@@ -529,7 +544,7 @@ def disease_detection():
                 #     os.remove(filepath) # Removed
                 # else: # Removed
                 try:
-                    confidence_threshold = 0.60
+                    confidence_threshold = 0.50  # Set to 0.50 to filter out non-plant images while still allowing valid predictions
                     result = ensemble_predict(filepath, confidence_threshold)
                 except Exception as e:
                     print(f"Error during disease prediction: {e}")
