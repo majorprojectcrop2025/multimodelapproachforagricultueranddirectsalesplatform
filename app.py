@@ -36,14 +36,20 @@ GEMINI_MODEL_NAME = os.environ.get("GEMINI_MODEL_NAME", "gemini-2.0-flash")
 gemini_model = None
 
 if GEMINI_API_KEY:
+    # Show masked API key for debugging (first 10 and last 4 characters)
+    masked_key = f"{GEMINI_API_KEY[:10]}...{GEMINI_API_KEY[-4:]}" if len(GEMINI_API_KEY) > 14 else "***"
+    print(f"🔑 Loading Gemini API Key: {masked_key}")
+    print(f"📋 Model: {GEMINI_MODEL_NAME}")
     try:
         genai.configure(api_key=GEMINI_API_KEY)
         gemini_model = genai.GenerativeModel(GEMINI_MODEL_NAME)
-        print(f"✅ Gemini model '{GEMINI_MODEL_NAME}' initialized.")
+        print(f"✅ Gemini model '{GEMINI_MODEL_NAME}' initialized successfully!")
     except Exception as exc:
         print(f"⚠️ Failed to initialize Gemini model: {exc}")
+        print(f"   Error details: {type(exc).__name__}")
 else:
     print("⚠️ GEMINI_API_KEY not set; agri chatbot endpoint will be disabled.")
+    print("   To fix: Set environment variable: $env:GEMINI_API_KEY = 'YOUR_KEY'")
 
 # Database functions
 def get_db():
@@ -151,7 +157,7 @@ lemon_transform = transforms.Compose([
     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
 ])
 lemon_model = None
-POTATO_MODEL_PATH = os.path.join(BASE_DIR, "pakacropdiseases", "potato", "mobilenetv2_potato_disease.pth")
+POTATO_MODEL_PATH = os.path.join(BASE_DIR, "pakacropdiseases", "potato", "resnet50_potato_disease_classifier.pth")
 POTATO_CLASS_NAMES = [
     "Early Blight",
     "Late Blight",
@@ -534,7 +540,7 @@ def disease_detection():
                 filename = secure_filename(file.filename)
                 filepath = os.path.join(UPLOAD_FOLDER, filename)
                 file.save(filepath)
-                uploaded_filename = os.path.join("uploads", "disease_detection", filename)
+                uploaded_filename = f"uploads/disease_detection/{filename}"
 
                 # Perform image validation (plant vs. non-plant) is now handled by ensemble model
                 # is_plant_image = validate_plant_image(filepath) # Removed
@@ -635,6 +641,35 @@ def new_yield_prediction_page():
 def agri_chatbot_page():
     return render_template("agri_chatbot.html", gemini_enabled=gemini_model is not None)
 
+@app.route("/api/check_gemini_status")
+def check_gemini_status():
+    """Debug endpoint to check Gemini API key status"""
+    has_key = GEMINI_API_KEY is not None
+    masked_key = f"{GEMINI_API_KEY[:10]}...{GEMINI_API_KEY[-4:]}" if (has_key and len(GEMINI_API_KEY) > 14) else "Not set"
+    
+    # Try a test API call to see if it actually works
+    test_status = "not_tested"
+    test_error = None
+    if gemini_model is not None:
+        try:
+            test_response = gemini_model.generate_content("Say 'OK' if you can hear me.")
+            if test_response and test_response.text:
+                test_status = "working"
+            else:
+                test_status = "no_response"
+        except Exception as e:
+            test_status = "error"
+            test_error = str(e)[:200]  # Limit error message length
+    
+    return jsonify({
+        "api_key_set": has_key,
+        "api_key_masked": masked_key,
+        "model_name": GEMINI_MODEL_NAME,
+        "gemini_model_initialized": gemini_model is not None,
+        "api_test_status": test_status,
+        "api_test_error": test_error
+    })
+
 
 @app.route("/api/agri_chat", methods=["POST"])
 def agri_chat_api():
@@ -667,8 +702,37 @@ def agri_chat_api():
             ai_text = "I couldn't generate a response right now. Please try again."
         return jsonify({"status": "success", "response": ai_text})
     except Exception as exc:
+        error_str = str(exc)
         print(f"Error during agri chatbot response: {exc}")
-        return jsonify({"status": "error", "error": "Failed to connect to Gemini API."}), 500
+        
+        # Check for quota/rate limit errors
+        if "429" in error_str or "quota" in error_str.lower() or "rate limit" in error_str.lower():
+            error_message = (
+                "⚠️ API Quota Exceeded: Your Gemini API key's project has reached its free tier limit (limit: 0).\n\n"
+                "🔧 Solutions:\n"
+                "1. Try a different Gemini model (may have different quota):\n"
+                "   $env:GEMINI_MODEL_NAME = 'gemini-1.5-flash'\n"
+                "   Then restart the server.\n\n"
+                "2. Use a different Google account:\n"
+                "   - Go to https://ai.google.dev\n"
+                "   - Sign in with a NEW Google account\n"
+                "   - Create a new project\n"
+                "   - Generate a new API key\n"
+                "   - Set: $env:GEMINI_API_KEY = 'NEW_KEY'\n"
+                "   - Restart server\n\n"
+                "3. Enable billing in Google Cloud Console for your current project.\n\n"
+                f"Current key: {GEMINI_API_KEY[:10]}...{GEMINI_API_KEY[-4:] if len(GEMINI_API_KEY) > 14 else '***'}\n"
+                f"Current model: {GEMINI_MODEL_NAME}"
+            )
+        elif "401" in error_str or "403" in error_str or "invalid" in error_str.lower():
+            error_message = (
+                "🔑 API Key Error: Your Gemini API key is invalid or expired. "
+                "Please check your API key and ensure it's correctly set in the environment variable."
+            )
+        else:
+            error_message = f"Failed to connect to Gemini API. Error: {error_str[:200]}"
+        
+        return jsonify({"status": "error", "error": error_message}), 500
 
 
 
@@ -885,7 +949,7 @@ def lemon_disease_page():
                 os.makedirs(upload_dir, exist_ok=True)
                 filepath = os.path.join(upload_dir, filename)
                 file.save(filepath)
-                uploaded_filename = os.path.join("uploads", "lemon", filename)
+                uploaded_filename = f"uploads/lemon/{filename}"
                 prediction = predict_lemon_disease(filepath)
             except Exception as e:
                 print(f"Error during lemon disease prediction: {e}")
@@ -916,11 +980,23 @@ def potato_disease_page():
                 os.makedirs(upload_dir, exist_ok=True)
                 filepath = os.path.join(upload_dir, filename)
                 file.save(filepath)
-                uploaded_filename = os.path.join("uploads", "potato", filename)
+                # Use forward slashes for URL paths (works on all platforms)
+                uploaded_filename = f"uploads/potato/{filename}"
                 prediction = predict_potato_disease(filepath)
+            except ValueError as e:
+                # Handle invalid/unknown image errors
+                print(f"Invalid potato image: {e}")
+                error = str(e)
+                # Optionally delete the uploaded file if it's invalid
+                if os.path.exists(filepath):
+                    try:
+                        os.remove(filepath)
+                        uploaded_filename = None
+                    except:
+                        pass
             except Exception as e:
                 print(f"Error during potato disease prediction: {e}")
-                error = "Failed to analyze the image. Please try again with a valid image."
+                error = "Failed to analyze the image. Please try again with a valid potato plant image."
 
     return render_template(
         "potato_disease.html",
@@ -947,7 +1023,7 @@ def rice_disease_page():
                 os.makedirs(upload_dir, exist_ok=True)
                 filepath = os.path.join(upload_dir, filename)
                 file.save(filepath)
-                uploaded_filename = os.path.join("uploads", "rice", filename)
+                uploaded_filename = f"uploads/rice/{filename}"
                 prediction = predict_rice_disease(filepath)
             except Exception as e:
                 print(f"Error during rice disease prediction: {e}")
@@ -978,7 +1054,7 @@ def tomato_disease_page():
                 os.makedirs(upload_dir, exist_ok=True)
                 filepath = os.path.join(upload_dir, filename)
                 file.save(filepath)
-                uploaded_filename = os.path.join("uploads", "tomato", filename)
+                uploaded_filename = f"uploads/tomato/{filename}"
                 prediction = predict_tomato_disease(filepath)
             except Exception as e:
                 print(f"Error during tomato disease prediction: {e}")
@@ -1009,7 +1085,7 @@ def cucumber_disease_page():
                 os.makedirs(upload_dir, exist_ok=True)
                 filepath = os.path.join(upload_dir, filename)
                 file.save(filepath)
-                uploaded_filename = os.path.join("uploads", "cucumber", filename)
+                uploaded_filename = f"uploads/cucumber/{filename}"
                 prediction = predict_cucumber_disease(filepath)
             except Exception as e:
                 print(f"Error during cucumber disease prediction: {e}")
@@ -1225,8 +1301,8 @@ def predict_lemon_disease(image_path, confidence_threshold=0.80):
 def get_potato_model():
     global potato_model
     if potato_model is None:
-        model = models.mobilenet_v2(pretrained=False)
-        model.classifier[1] = torch.nn.Linear(model.classifier[1].in_features, len(POTATO_CLASS_NAMES))
+        model = models.resnet50(pretrained=False)
+        model.fc = torch.nn.Linear(model.fc.in_features, len(POTATO_CLASS_NAMES))
         state_dict = torch.load(POTATO_MODEL_PATH, map_location=device)
         model.load_state_dict(state_dict)
         model.to(device).eval()
@@ -1234,7 +1310,7 @@ def get_potato_model():
     return potato_model
 
 
-def predict_potato_disease(image_path, confidence_threshold=0.80):
+def predict_potato_disease(image_path, confidence_threshold=0.85):
     model = get_potato_model()
     image = Image.open(image_path).convert("RGB")
     img_tensor = potato_transform(image).unsqueeze(0).to(device)
@@ -1246,19 +1322,23 @@ def predict_potato_disease(image_path, confidence_threshold=0.80):
     confidence = score.item()
     predicted_class = POTATO_CLASS_NAMES[pred_idx.item()]
 
+    # Reject predictions with low confidence (unknown/non-potato images)
     if confidence < confidence_threshold:
-        result_message = "Unknown class"
-        is_diseased = False
-        is_healthy = False
+        raise ValueError(
+            f"Invalid image: The uploaded image does not appear to be a potato plant. "
+            f"Please upload a clear image of a potato leaf or plant. "
+            f"(Confidence: {confidence:.2%}, threshold: {confidence_threshold:.2%})"
+        )
+    
+    # Only return results if confidence is high enough
+    is_healthy = "healthy" in predicted_class.lower()
+    is_diseased = not is_healthy
+    if is_diseased:
+        result_message = "It is diseased"
+    elif is_healthy:
+        result_message = "It is healthy"
     else:
-        is_healthy = "healthy" in predicted_class.lower()
-        is_diseased = not is_healthy
-        if is_diseased:
-            result_message = "It is diseased"
-        elif is_healthy:
-            result_message = "It is healthy"
-        else:
-            result_message = predicted_class # Fallback if neither diseased nor healthy is explicit
+        result_message = predicted_class  # Fallback if neither diseased nor healthy is explicit
 
     return {
         "class_name": predicted_class,

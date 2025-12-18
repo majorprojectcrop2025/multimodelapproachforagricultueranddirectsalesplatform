@@ -217,12 +217,7 @@
                 </div>
                 <p>Confidence: {{ '%.2f'|format(prediction.confidence * 100) }}%</p>
             {% endif %}
-            <p class="threshold-indicator" style="margin-top: 15px; font-weight: 500; color: #14532d;"><i class="fas fa-shield-alt"></i> Confidence Threshold is fixed at 80% (0.80)</p>
-            {% if uploaded_filename %}
-            <div class="preview">
-                <img src="{{ url_for('static', filename=uploaded_filename) }}" alt="Uploaded potato leaf">
-            </div>
-            {% endif %}
+            <p class="threshold-indicator" style="margin-top: 15px; font-weight: 500; color: #14532d;"><i class="fas fa-shield-alt"></i> Confidence Threshold is fixed at 85% (0.85)</p>
         </div>
         {% endif %}
         <a href="/particular_disease_detection" class="btn-back-home">Back to Particular Disease Detection</a>

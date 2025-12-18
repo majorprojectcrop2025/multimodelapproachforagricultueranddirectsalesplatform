@@ -3,163 +3,764 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crop Yield Prediction</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Crop Yield Prediction - AgriTech</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
-            color: #333;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #87CEEB 0%, #98D8C8 25%, #F7DC6F 50%, #85C1E2 75%, #52BE80 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
         }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         .container {
-            max-width: 800px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
-        h1 {
-            color: #4CAF50;
-            text-align: center;
-        }
-        form {
-            text-align: center;
-            margin-top: 20px;
-        }
-        input[type="submit"] {
-            background-color: #4CAF50;
+
+        .dataset-notice {
+            background: linear-gradient(135deg, #FFA726 0%, #FB8C00 100%);
             color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
+            padding: 20px 30px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 20px rgba(255, 167, 38, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: fadeInDown 0.5s ease-out;
         }
-        input[type="submit"]:hover {
-            background-color: #45a049;
+
+        .dataset-notice i {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .dataset-notice-content {
+            flex: 1;
+        }
+
+        .dataset-notice-content strong {
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .info-panel {
+            background: linear-gradient(135deg, #E3F2FD 0%, #E8F5E9 100%);
+            border-left: 5px solid #4CAF50;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: none;
+            animation: fadeInUp 0.3s ease-out;
+        }
+
+        .info-panel.show {
+            display: block;
+        }
+
+        .info-panel-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .info-panel-header h3 {
+            color: #2E7D32;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .info-panel-header i {
+            color: #4CAF50;
+            font-size: 1.5rem;
+        }
+
+        .info-panel-content {
+            color: #2c3e50;
+            line-height: 1.8;
+        }
+
+        .info-panel-content p {
+            margin-bottom: 12px;
+        }
+
+        .info-panel-content ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .info-panel-content li {
+            margin-bottom: 8px;
+        }
+
+        .info-panel-content strong {
+            color: #2E7D32;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, #2E7D32 0%, #4CAF50 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px 20px 0 0;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-card h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .header-card h1 i {
+            font-size: 2.5rem;
+        }
+
+        .header-card p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .form-card {
+            background: white;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
         }
 
         .form-group {
-            margin-bottom: 15px;
-            text-align: left;
+            margin-bottom: 0;
         }
+
         .form-group label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+
+        .form-group label i {
+            color: #4CAF50;
+            font-size: 1rem;
+            width: 18px;
+        }
+
+        .form-group input[type="number"],
         .form-group input[type="text"],
-        .form-group input[type="number"] {
-            width: calc(100% - 22px); /* Adjust for padding and border */
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
+        .form-group select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #2c3e50;
+            transition: all 0.3s ease;
         }
-        .form-submit-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
+
+        .form-group select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%232c3e50' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 18px center;
+            background-size: 15px;
+            padding-right: 45px;
             cursor: pointer;
-            font-size: 18px;
-            margin-top: 20px;
         }
+
+        .form-group input:hover,
+        .form-group select:hover {
+            border-color: #4CAF50;
+            background-color: #fff;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #4CAF50;
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.1);
+        }
+
+        .submit-container {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .form-submit-button {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            padding: 16px 50px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
         .form-submit-button:hover {
-            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .form-submit-button:active {
+            transform: translateY(0);
+        }
+
+        .error-message {
+            background: #fff5f5;
+            color: #c53030;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            border: 2px solid #fc8181;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .results-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #4CAF50;
+        }
+
+        .results-header h2 {
+            color: #2E7D32;
+            font-size: 2.2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .results-header h2 i {
+            color: #4CAF50;
+            font-size: 2rem;
+        }
+
+        .predictions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .prediction-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e8f5e9 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #4CAF50;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .prediction-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .prediction-card h3 {
+            color: #2E7D32;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prediction-card h3 i {
+            color: #4CAF50;
+            font-size: 1.1rem;
+        }
+
+        .prediction-value {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .final-result {
+            background: linear-gradient(135deg, #2E7D32 0%, #4CAF50 100%);
+            padding: 35px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 8px 25px rgba(46, 125, 50, 0.3);
+        }
+
+        .final-result h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            opacity: 0.95;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .final-result .final-value {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-top: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 30px;
+            padding: 12px 25px;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+        }
+
+        .back-link:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .header-card h1 {
+                font-size: 2rem;
+            }
+
+            .form-card, .results-card {
+                padding: 25px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .predictions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .final-result .final-value {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 style="color: #4CAF50;">Crop Yield Prediction</h1>
-        <form action="/yield_prediction" method="POST">
+        <div class="dataset-notice">
+            <i class="fas fa-info-circle"></i>
+            <div class="dataset-notice-content">
+                <strong><i class="fas fa-database"></i> Dataset Information</strong>
+                <span>This prediction model is trained on historical agricultural data from <strong>2022-2024</strong>. Predictions are based on patterns and trends observed during this period.</span>
+            </div>
+        </div>
+
+        <div class="header-card">
+            <h1><i class="fas fa-chart-line"></i> Crop Yield Prediction</h1>
+            <p>Advanced machine learning models for accurate crop yield forecasting</p>
+        </div>
+
+        <div class="form-card">
             {% if yield_error %}
-                <p style="color: red; font-weight: bold;">{{ yield_error }}</p>
+                <div class="error-message">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>{{ yield_error }}</span>
+                </div>
             {% endif %}
-            <div class="form-group">
-                <label for="location">Location:</label>
-                <select id="location" name="location" required>
-                    {% for option in categorical_options.Location %}
-                    <option value="{{ option }}">{{ option }}</option>
-                    {% endfor %}
-                </select>
-            </div>
 
-            <div class="form-group">
-                <label for="area">Area (in acres):</label>
-                <input type="number" step="any" id="area" name="area" required>
-            </div>
+            <form action="/yield_prediction" method="POST">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="location"><i class="fas fa-map-marker-alt"></i> Location</label>
+                        <select id="location" name="location" required>
+                            {% for option in categorical_options.Location %}
+                            <option value="{{ option }}">{{ option }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
-            <div class="form-group">
-                <label for="rainfall">Rainfall (mm):</label>
-                <input type="number" step="any" id="rainfall" name="rainfall" required>
-            </div>
+                    <div class="form-group">
+                        <label for="area"><i class="fas fa-ruler-combined"></i> Area (in acres)</label>
+                        <input type="number" step="any" id="area" name="area" required placeholder="Enter area">
+                    </div>
 
-            <div class="form-group">
-                <label for="temperature">Temperature (°C):</label>
-                <input type="number" step="any" id="temperature" name="temperature" required>
-            </div>
+                    <div class="form-group">
+                        <label for="rainfall"><i class="fas fa-cloud-rain"></i> Rainfall (mm)</label>
+                        <input type="number" step="any" id="rainfall" name="rainfall" required placeholder="Enter rainfall">
+                    </div>
 
-            <div class="form-group">
-                <label for="soil_type">Soil Type:</label>
-                <select id="soil_type" name="soil_type" required>
-                    {% for option in categorical_options['Soil type'] %}
-                    <option value="{{ option }}">{{ option }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+                    <div class="form-group">
+                        <label for="temperature"><i class="fas fa-thermometer-half"></i> Temperature (°C)</label>
+                        <input type="number" step="any" id="temperature" name="temperature" required placeholder="Enter temperature">
+                    </div>
 
-            <div class="form-group">
-                <label for="irrigation">Irrigation:</label>
-                <select id="irrigation" name="irrigation" required>
-                    {% for option in categorical_options.Irrigation %}
-                    <option value="{{ option }}">{{ option }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+                    <div class="form-group">
+                        <label for="soil_type"><i class="fas fa-landmark"></i> Soil Type</label>
+                        <select id="soil_type" name="soil_type" required>
+                            {% for option in categorical_options['Soil type'] %}
+                            <option value="{{ option }}">{{ option }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
-            <div class="form-group">
-                <label for="humidity">Humidity (%):</label>
-                <input type="number" step="any" id="humidity" name="humidity" required>
-            </div>
+                    <div class="form-group">
+                        <label for="irrigation"><i class="fas fa-tint"></i> Irrigation</label>
+                        <select id="irrigation" name="irrigation" required>
+                            {% for option in categorical_options.Irrigation %}
+                            <option value="{{ option }}">{{ option }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
-            <div class="form-group">
-                <label for="crops">Crops:</label>
-                <select id="crops" name="crops" required>
-                    {% for option in categorical_options.Crops %}
-                    <option value="{{ option }}">{{ option }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+                    <div class="form-group">
+                        <label for="humidity"><i class="fas fa-water"></i> Humidity (%)</label>
+                        <input type="number" step="any" id="humidity" name="humidity" required placeholder="Enter humidity">
+                    </div>
 
-            <div class="form-group">
-                <label for="price">Price:</label>
-                <input type="number" step="any" id="price" name="price" required>
-            </div>
+                    <div class="form-group">
+                        <label for="crops"><i class="fas fa-seedling"></i> Crops</label>
+                        <select id="crops" name="crops" required>
+                            {% for option in categorical_options.Crops %}
+                            <option value="{{ option }}">{{ option }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
-            <div class="form-group">
-                <label for="season">Season:</label>
-                <select id="season" name="season" required>
-                    {% for option in categorical_options.Season %}
-                    <option value="{{ option }}">{{ option }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+                    <div class="form-group">
+                        <label for="price"><i class="fas fa-dollar-sign"></i> Price</label>
+                        <input type="number" step="any" id="price" name="price" required placeholder="Enter price">
+                    </div>
 
-            <button type="submit" class="form-submit-button">Predict Yield</button>
-        </form>
+                    <div class="form-group">
+                        <label for="season"><i class="fas fa-calendar-alt"></i> Season</label>
+                        <select id="season" name="season" required>
+                            {% for option in categorical_options.Season %}
+                            <option value="{{ option }}">{{ option }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="submit-container">
+                    <button type="submit" class="form-submit-button">
+                        <i class="fas fa-calculator"></i> Predict Yield
+                    </button>
+                </div>
+            </form>
+
+            <div id="infoPanel" class="info-panel">
+                <div class="info-panel-header">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3 id="infoTitle">Information</h3>
+                </div>
+                <div class="info-panel-content" id="infoContent">
+                    <!-- Information will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
 
         {% if yield_predictions and not yield_error %}
-            <h2>Yield Prediction Results:</h2>
-            <p>KNN Prediction: {{ yield_predictions.knn | round(2) }}</p>
-            <p>XGBoost Prediction: {{ yield_predictions.xgboost | round(2) }}</p>
-            <p>K-Means Cluster Prediction: {{ yield_predictions.kmeans_cluster | round(2) }}</p>
-            <h3>Final Ensemble Yield: {{ yield_predictions.final_ensemble_yield | round(2) }}</h3>
+            <div class="results-card">
+                <div class="results-header">
+                    <h2><i class="fas fa-chart-bar"></i> Yield Prediction Results</h2>
+                </div>
+
+                <div class="predictions-grid">
+                    <div class="prediction-card">
+                        <h3><i class="fas fa-brain"></i> KNN Prediction</h3>
+                        <div class="prediction-value">{{ yield_predictions.knn | round(2) }}</div>
+                    </div>
+
+                    <div class="prediction-card">
+                        <h3><i class="fas fa-project-diagram"></i> XGBoost Prediction</h3>
+                        <div class="prediction-value">{{ yield_predictions.xgboost | round(2) }}</div>
+                    </div>
+
+                    <div class="prediction-card">
+                        <h3><i class="fas fa-chart-pie"></i> K-Means Cluster Prediction</h3>
+                        <div class="prediction-value">{{ yield_predictions.kmeans_cluster | round(2) }}</div>
+                    </div>
+                </div>
+
+                <div class="final-result">
+                    <h3><i class="fas fa-trophy"></i> Final Ensemble Yield</h3>
+                    <div class="final-value">{{ yield_predictions.final_ensemble_yield | round(2) }}</div>
+                </div>
+            </div>
         {% endif %}
+
+        <a href="/" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
     </div>
+
+    <script>
+        // Information database for different options
+        const informationDB = {
+            irrigation: {
+                title: "Irrigation Methods",
+                content: `
+                    <p><strong>Irrigation</strong> is the artificial application of water to land or soil to assist in the growth of crops.</p>
+                    <p><strong>Types of Irrigation:</strong></p>
+                    <ul>
+                        <li><strong>Basin:</strong> Water is applied to the entire field surface, creating a basin. Suitable for rice and other water-intensive crops.</li>
+                        <li><strong>Drip:</strong> Water is delivered directly to plant roots through a network of tubes and emitters. Most water-efficient method.</li>
+                        <li><strong>Sprinkler:</strong> Water is sprayed over crops like rainfall. Good for uniform water distribution.</li>
+                        <li><strong>Furrow:</strong> Water flows in small channels between crop rows. Common for row crops.</li>
+                        <li><strong>Flood:</strong> Field is completely flooded with water. Used mainly for rice cultivation.</li>
+                    </ul>
+                `
+            },
+            soil_type: {
+                title: "Soil Types",
+                content: `
+                    <p><strong>Soil Type</strong> refers to the classification of soil based on its texture, composition, and properties.</p>
+                    <p><strong>Common Soil Types:</strong></p>
+                    <ul>
+                        <li><strong>Alluvial:</strong> Rich, fertile soil deposited by rivers. Excellent for most crops.</li>
+                        <li><strong>Black Soil:</strong> High clay content, retains moisture well. Ideal for cotton, sugarcane.</li>
+                        <li><strong>Red Soil:</strong> Rich in iron oxide, well-drained. Good for pulses, millets.</li>
+                        <li><strong>Laterite:</strong> Rich in iron and aluminum, acidic. Suitable for tea, coffee.</li>
+                        <li><strong>Mountain:</strong> Found in hilly regions, varies greatly. Suitable for fruits, vegetables.</li>
+                        <li><strong>Desert:</strong> Sandy, low organic matter. Requires irrigation and soil improvement.</li>
+                    </ul>
+                `
+            },
+            season: {
+                title: "Agricultural Seasons",
+                content: `
+                    <p><strong>Season</strong> refers to the time period when crops are grown, which affects growth patterns and yield.</p>
+                    <p><strong>Major Seasons in India:</strong></p>
+                    <ul>
+                        <li><strong>Kharif:</strong> Monsoon season (June-October). Crops: Rice, maize, cotton, groundnut.</li>
+                        <li><strong>Rabi:</strong> Winter season (October-March). Crops: Wheat, barley, mustard, peas.</li>
+                        <li><strong>Zaid:</strong> Summer season (March-June). Crops: Watermelon, cucumber, vegetables.</li>
+                    </ul>
+                    <p>Season selection affects temperature, rainfall patterns, and crop growth cycles.</p>
+                `
+            },
+            location: {
+                title: "Location Selection",
+                content: `
+                    <p><strong>Location</strong> determines regional climate, soil characteristics, and agricultural practices.</p>
+                    <p>Different locations have varying:</p>
+                    <ul>
+                        <li>Average temperature ranges</li>
+                        <li>Rainfall patterns</li>
+                        <li>Soil types</li>
+                        <li>Growing seasons</li>
+                        <li>Agricultural traditions</li>
+                    </ul>
+                    <p>Select the location closest to your farming area for most accurate predictions.</p>
+                `
+            },
+            crops: {
+                title: "Crop Selection",
+                content: `
+                    <p><strong>Crop Type</strong> significantly influences yield predictions as different crops have varying:</p>
+                    <ul>
+                        <li>Growth requirements</li>
+                        <li>Yield potential</li>
+                        <li>Water needs</li>
+                        <li>Temperature tolerance</li>
+                        <li>Harvest periods</li>
+                    </ul>
+                    <p>Select the crop you plan to cultivate for accurate yield forecasting.</p>
+                `
+            },
+            area: {
+                title: "Area Measurement",
+                content: `
+                    <p><strong>Area</strong> refers to the total land area used for cultivation, measured in acres.</p>
+                    <p><strong>Important Notes:</strong></p>
+                    <ul>
+                        <li>1 acre = 0.4047 hectares</li>
+                        <li>Enter the actual cultivated area, not total land area</li>
+                        <li>Larger areas may have varying conditions across the field</li>
+                        <li>For best results, use the area where uniform conditions apply</li>
+                    </ul>
+                `
+            },
+            rainfall: {
+                title: "Rainfall Measurement",
+                content: `
+                    <p><strong>Rainfall</strong> is measured in millimeters (mm) and represents the total precipitation.</p>
+                    <p><strong>Guidelines:</strong></p>
+                    <ul>
+                        <li>Use average annual or seasonal rainfall for your region</li>
+                        <li>Check local meteorological data for accurate values</li>
+                        <li>Consider both natural rainfall and irrigation together</li>
+                        <li>Typical range: 500-2000mm annually for most crops</li>
+                    </ul>
+                `
+            },
+            temperature: {
+                title: "Temperature",
+                content: `
+                    <p><strong>Temperature</strong> is measured in Celsius (°C) and affects crop growth significantly.</p>
+                    <p><strong>Important Points:</strong></p>
+                    <ul>
+                        <li>Use average temperature during the growing season</li>
+                        <li>Most crops grow best between 15-30°C</li>
+                        <li>Extreme temperatures can reduce yield</li>
+                        <li>Consider both day and night temperature variations</li>
+                    </ul>
+                `
+            },
+            humidity: {
+                title: "Humidity",
+                content: `
+                    <p><strong>Humidity</strong> is the amount of water vapor in the air, measured as a percentage (%).</p>
+                    <p><strong>Effects on Crops:</strong></p>
+                    <ul>
+                        <li>High humidity (70-90%): Reduces water loss, increases disease risk</li>
+                        <li>Moderate humidity (50-70%): Optimal for most crops</li>
+                        <li>Low humidity (&lt;50%): Increases water needs, may stress plants</li>
+                        <li>Use average relative humidity during growing season</li>
+                    </ul>
+                `
+            },
+            price: {
+                title: "Price Input",
+                content: `
+                    <p><strong>Price</strong> refers to the market price or expected selling price of the crop.</p>
+                    <p><strong>Guidelines:</strong></p>
+                    <ul>
+                        <li>Enter price per unit (kg, quintal, etc.)</li>
+                        <li>Use current market rates or expected prices</li>
+                        <li>Price affects economic viability and planning</li>
+                        <li>Consider seasonal price variations</li>
+                    </ul>
+                `
+            }
+        };
+
+        // Show information when user selects an option
+        function showInformation(fieldName, selectedValue) {
+            const infoPanel = document.getElementById('infoPanel');
+            const infoTitle = document.getElementById('infoTitle');
+            const infoContent = document.getElementById('infoContent');
+
+            if (informationDB[fieldName]) {
+                infoTitle.textContent = informationDB[fieldName].title;
+                infoContent.innerHTML = informationDB[fieldName].content;
+                infoPanel.classList.add('show');
+            } else {
+                infoPanel.classList.remove('show');
+            }
+        }
+
+        // Add event listeners to all form fields
+        document.addEventListener('DOMContentLoaded', function() {
+            // Select fields
+            const selectFields = ['location', 'soil_type', 'irrigation', 'crops', 'season'];
+            selectFields.forEach(fieldName => {
+                const field = document.getElementById(fieldName);
+                if (field) {
+                    field.addEventListener('change', function() {
+                        showInformation(fieldName, this.value);
+                    });
+                    field.addEventListener('focus', function() {
+                        showInformation(fieldName, this.value);
+                    });
+                }
+            });
+
+            // Input fields
+            const inputFields = ['area', 'rainfall', 'temperature', 'humidity', 'price'];
+            inputFields.forEach(fieldName => {
+                const field = document.getElementById(fieldName);
+                if (field) {
+                    field.addEventListener('focus', function() {
+                        showInformation(fieldName, this.value);
+                    });
+                    field.addEventListener('input', function() {
+                        if (this.value) {
+                            showInformation(fieldName, this.value);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

@@ -3,211 +3,651 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consumer to Farmers</title>
+    <title>Consumer to Farmers - Business Platform | AgriTech</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            margin: 0;
+            padding: 20px;
         }
-        .container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            max-width: 95%; /* Make it wider */
-            width: 95%;
+
+        .business-container {
+            max-width: 1400px;
+            margin: 0 auto;
         }
-        h1 {
-            color: #2c3e50;
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-        label {
-            display: block;
-            color: #333;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-        select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 1rem;
-            color: #333;
-            background-color: #f8f8f8;
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007BBF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13.2-5.4H18.6c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%204.7%201.7%209.1%205.2%2012.7l139.3%20139.3c5%205%2011.8%207.8%2017.6%207.8s12.6-2.8%2017.6-7.8l139.3-139.3c3.5-3.6%205.2-8%205.2-12.7%200-4.7-1.7-9.1-5.2-12.7z%22%2F%3E%3C%2Fsvg%3E");
-            background-repeat: no-repeat;
-            background-position: right .7em top 50%, 0 0;
-            background-size: .65em auto, 100%;
-        }
-        button {
+
+        /* Header Section */
+        .business-header {
             background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
             color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 50px;
+            padding: 30px 40px;
+            border-radius: 15px 15px 0 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 0;
+        }
+
+        .business-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .business-header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        /* Search Panel */
+        .search-panel {
+            background: white;
+            padding: 30px 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 0;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 20px;
+            align-items: flex-end;
+        }
+
+        .form-group {
+            flex: 1;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
             font-size: 1rem;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            background: white;
+            color: #2c3e50;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%234CAF50' d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 18px center;
+            background-size: 18px;
+            padding-right: 50px;
+        }
+
+        .form-group select:hover {
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.15);
+        }
+
+        .search-btn {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            padding: 14px 35px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-            margin-top: 20px;
-        }
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.5);
-        }
-        .results-container {
-            margin-top: 30px;
-            text-align: left;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-            padding-top: 20px;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 25px; /* Gap between cards */
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
         }
-        .result-item {
-            background: linear-gradient(135deg, #e0ffe0 0%, #c0ffd0 100%);
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: white;
+            padding: 20px 40px;
+            display: flex;
+            gap: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .stat-icon.green { background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); }
+        .stat-icon.blue { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .stat-icon.orange { background: linear-gradient(135deg, #FFA726 0%, #FB8C00 100%); }
+
+        .stat-content h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin: 0;
+        }
+
+        .stat-content p {
+            font-size: 0.9rem;
+            color: #718096;
+            margin: 0;
+        }
+
+        /* Results Section */
+        .results-section {
+            background: white;
+            padding: 40px;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: 0;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #4CAF50;
+        }
+
+        .results-header h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .results-count {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* Match Cards */
+        .matches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(550px, 1fr));
+            gap: 25px;
+        }
+
+        .match-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
             border-radius: 15px;
             padding: 25px;
-            /* width: 100%; Take full width within its flex context */
-            flex: 1 1 auto; /* Allow items to grow and shrink */
-            min-width: 300px; /* Minimum width for cards */
-            max-width: 45%; /* Max two cards per row on larger screens */
-            margin-bottom: 0; /* Remove individual margin-bottom from .result-item */
-            color: #2c3e50;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            transition: transform 0.2s ease-in-out;
-        }
-        .result-item:hover {
-            transform: translateY(-5px);
-        }
-        .result-item h3 {
-            margin-top: 0;
-            color: #28a745; /* A vibrant green for consumer details */
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #28a745;
-            padding-bottom: 10px;
-        }
-        .result-item h3.farmer-heading {
-            color: #007bff; /* A distinct blue for farmer offers */
-            border-bottom: 2px solid #007bff;
-        }
-        .result-item p {
-            margin-bottom: 8px;
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-        .result-item p strong {
-            color: #333;
-        }
-        .result-item-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 10px 20px; /* Row gap and column gap */
-        }
-        .result-item-content p {
-            flex: 1 1 calc(50% - 10px); /* Two columns, with a gap */
-            margin-bottom: 0;
-        }
-        /* Adjust for smaller screens */
-        @media (max-width: 600px) {
-            .result-item-content p {
-                flex: 1 1 100%; /* Single column on small screens */
-            }
-        }
-        .back-button {
-            display: inline-block;
-            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-            color: white;
-            padding: 10px 25px;
-            border-radius: 50px;
-            text-decoration: none;
-            margin-top: 30px;
-            font-weight: 500;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #4CAF50;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+            position: relative;
+            overflow: hidden;
         }
-        .back-button:hover {
+
+        .match-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, transparent 100%);
+            border-radius: 0 0 0 100px;
+        }
+
+        .match-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .match-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .match-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .match-title h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin: 0;
+        }
+
+        .match-badge {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .match-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .info-section {
+            background: white;
+            padding: 18px;
+            border-radius: 12px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .info-section h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #4CAF50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .info-section.farmer-section h4 {
+            color: #667eea;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: #2c3e50;
+            text-align: right;
+        }
+
+        .price-highlight {
+            color: #4CAF50;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .quality-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .quality-premium {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: white;
+        }
+
+        .quality-good {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+        }
+
+        .health-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-contact {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-contact:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.5);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-view {
+            background: white;
+            color: #4CAF50;
+            border: 2px solid #4CAF50;
+        }
+
+        .btn-view:hover {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #718096;
+        }
+
+        .no-results i {
+            font-size: 4rem;
+            color: #cbd5e0;
+            margin-bottom: 20px;
+        }
+
+        .no-results h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 30px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+        }
+
+        .back-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+        }
+
+        @media (max-width: 968px) {
+            .matches-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .match-content {
+                grid-template-columns: 1fr;
+            }
+
+            .search-form {
+                flex-direction: column;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Consumer to Farmers</h1>
-        <form action="/consumer_to_farmers" method="POST">
-            <div class="form-group">
-                <label for="CropNeeded"><i class="fas fa-seedling"></i> Select Crop Needed:</label>
-                <select id="CropNeeded" name="CropNeeded" required>
-                    <option value="">--Select a Crop--</option>
-                    {% for crop in crop_needed_options %}
-                        <option value="{{ crop }}" {% if selected_crop_needed == crop %}selected{% endif %}>{{ crop }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <button type="submit"><i class="fas fa-search"></i> Find Matches</button>
-        </form>
+    <div class="business-container">
+        <div class="business-header">
+            <h1><i class="fas fa-shopping-cart"></i> Consumer to Farmers Marketplace</h1>
+            <p>Find the best farmers for your crop needs</p>
+        </div>
 
-        <div class="results-container">
-            {% if matches %}
-                <h2>Matching Farmers:</h2>
+        <div class="search-panel">
+            <form action="/consumer_to_farmers" method="POST" class="search-form">
+                <div class="form-group">
+                    <label for="CropNeeded"><i class="fas fa-seedling"></i> Select Crop Needed</label>
+                    <select id="CropNeeded" name="CropNeeded" required>
+                        <option value="">-- Select a Crop --</option>
+                        {% for crop in crop_needed_options %}
+                            <option value="{{ crop }}" {% if selected_crop_needed == crop %}selected{% endif %}>{{ crop }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="search-btn">
+                    <i class="fas fa-search"></i> Find Farmers
+                </button>
+            </form>
+        </div>
+
+        {% if matches %}
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-icon green">
+                    <i class="fas fa-tractor"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>{{ matches|length }}</h3>
+                    <p>Available Farmers</p>
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon blue">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>{{ selected_crop_needed }}</h3>
+                    <p>Selected Crop</p>
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon orange">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Verified</h3>
+                    <p>Farmers Status</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-section">
+            <div class="results-header">
+                <h2><i class="fas fa-list"></i> Matching Farmers</h2>
+                <span class="results-count">{{ matches|length }} Farmer{{ 's' if matches|length != 1 else '' }} Found</span>
+            </div>
+
+            <div class="matches-grid">
                 {% for match in matches %}
-                    <div class="result-item">
-                        <h3>Consumer: {{ match['ConsumerName'] }} (ID: {{ match['ConsumerID'] }})</h3>
-                        <div class="result-item-content">
-                            <p><strong>Mobile:</strong> {{ match['ConsumerMobileNumber'] }}</p>
-                            <p><strong>Email:</strong> {{ match['ConsumerEmailID'] }}</p>
-                            <p><strong>Crop Needed:</strong> {{ match['CropNeeded'] }}</p>
-                            <p><strong>Quantity Needed:</strong> {{ match['QuantityNeeded'] }}</p>
-                            <p><strong>Max Price:</strong> {{ match['MaxPrice'] }}</p>
-                            <p><strong>Delivery Preference:</strong> {{ match['DeliveryPreference'] }}</p>
-                            <p><strong>Address:</strong> {{ match['ConsumerAddress'] }}</p>
+                <div class="match-card">
+                    <div class="match-header">
+                        <div class="match-title">
+                            <i class="fas fa-user-circle" style="color: #4CAF50; font-size: 1.8rem;"></i>
+                            <div>
+                                <h3>{{ match['ConsumerName'] }}</h3>
+                                <p style="font-size: 0.85rem; color: #718096; margin: 0;">ID: {{ match['ConsumerID'] }}</p>
+                            </div>
+                        </div>
+                        <span class="match-badge">Match Found</span>
+                    </div>
+
+                    <div class="match-content">
+                        <div class="info-section">
+                            <h4><i class="fas fa-shopping-bag"></i> Your Request</h4>
+                            <div class="info-row">
+                                <span class="info-label">Crop Needed:</span>
+                                <span class="info-value">{{ match['CropNeeded'] }}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Quantity:</span>
+                                <span class="info-value">{{ match['QuantityNeeded'] }} kg</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Max Price:</span>
+                                <span class="info-value price-highlight">₹{{ match['MaxPrice'] }}/kg</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Delivery:</span>
+                                <span class="info-value">{{ match['DeliveryPreference'] }}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Your Location:</span>
+                                <span class="info-value">{{ match['ConsumerAddress'] }}</span>
+                            </div>
                         </div>
 
-                        <h3 class="farmer-heading">Farmer: {{ match['FarmerName'] }} (ID: {{ match['FarmerID'] }})</h3>
-                        <div class="result-item-content">
-                            <p><strong>Mobile:</strong> {{ match['FarmerMobileNumber'] }}</p>
-                            <p><strong>Email:</strong> {{ match['FarmerEmailID'] }}</p>
-                            <p><strong>Farm Address:</strong> {{ match['FarmerFarmAddress'] }}</p>
-                            <p><strong>Crop Name:</strong> {{ match['FarmerCropName'] }}</p>
-                            <p><strong>Crop Variety:</strong> {{ match['FarmerCropVariety'] }}</p>
-                            <p><strong>Quantity Available:</strong> {{ match['FarmerQuantityAvailable'] }}</p>
-                            <p><strong>Price Per Unit:</strong> {{ match['FarmerPricePerUnit'] }}</p>
-                            <p><strong>Crop Quality:</strong> {{ match['FarmerCropQuality'] }}</p>
-                            <p><strong>Crop Health:</strong> {{ match['FarmerCropHealthCheck'] }}</p>
-                            <p><strong>Delivery Range (KM):</strong> {{ match['FarmerDeliveryRangeKM'] }}</p>
+                        <div class="info-section farmer-section">
+                            <h4><i class="fas fa-tractor"></i> Farmer Offer</h4>
+                            <div class="info-row">
+                                <span class="info-label">Farmer:</span>
+                                <span class="info-value">{{ match['FarmerName'] }}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Crop:</span>
+                                <span class="info-value">{{ match['FarmerCropName'] }}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Variety:</span>
+                                <span class="info-value">{{ match['FarmerCropVariety'] }}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Available:</span>
+                                <span class="info-value">{{ match['FarmerQuantityAvailable'] }} kg</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Price:</span>
+                                <span class="info-value price-highlight">₹{{ match['FarmerPricePerUnit'] }}/kg</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Quality:</span>
+                                <span class="info-value">
+                                    <span class="quality-badge {% if match['FarmerCropQuality'].lower() == 'premium' %}quality-premium{% else %}quality-good{% endif %}">
+                                        {{ match['FarmerCropQuality'] }}
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Health:</span>
+                                <span class="info-value">
+                                    <span class="health-badge">{{ match['FarmerCropHealthCheck'] }}</span>
+                                </span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Delivery Range:</span>
+                                <span class="info-value">{{ match['FarmerDeliveryRangeKM'] }} KM</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Farm Location:</span>
+                                <span class="info-value">{{ match['FarmerFarmAddress'] }}</span>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="action-buttons">
+                        <button class="action-btn btn-contact" onclick="contactFarmer('{{ match['FarmerMobileNumber'] }}', '{{ match['FarmerEmailID'] }}', '{{ match['FarmerName'] }}')">
+                            <i class="fas fa-phone"></i> Contact Farmer
+                        </button>
+                        <button class="action-btn btn-view" onclick="viewFarmerProfile('{{ match['FarmerID'] }}', '{{ match['FarmerName'] }}')">
+                            <i class="fas fa-user"></i> View Profile
+                        </button>
+                    </div>
+                </div>
                 {% endfor %}
-            {% elif request.method == 'POST' %}
-                <p>No matching farmers found for the selected crop.</p>
-            {% endif %}
+            </div>
         </div>
-        <a href="/consumer_dashboard" class="back-button"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+        {% elif request.method == 'POST' %}
+        <div class="results-section">
+            <div class="no-results">
+                <i class="fas fa-search"></i>
+                <h3>No Farmers Found</h3>
+                <p>No farmers found for the selected crop. Try selecting a different crop or check back later.</p>
+            </div>
+        </div>
+        {% endif %}
+
+        <a href="/consumer_dashboard" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
     </div>
+
+    <script>
+        function contactFarmer(mobile, email, farmerName) {
+            const message = `Contact Farmer: ${farmerName}\nMobile: ${mobile}\nEmail: ${email}\n\nWould you like to:\n1. Call: tel:${mobile}\n2. Email: mailto:${email}`;
+            if (confirm(message + '\n\nClick OK to call, or Cancel to email.')) {
+                window.location.href = `tel:${mobile}`;
+            } else {
+                window.location.href = `mailto:${email}?subject=Crop Inquiry&body=Hello ${farmerName},%0D%0A%0D%0AI am interested in your crop offer. Please contact me.`;
+            }
+        }
+
+        function viewFarmerProfile(farmerId, farmerName) {
+            alert(`Viewing profile for:\nFarmer: ${farmerName}\nID: ${farmerId}\n\nThis feature can be expanded to show:\n- Farmer rating & reviews\n- Previous orders\n- Farm location on map\n- Crop photos\n- Delivery history`);
+        }
+    </script>
 </body>
 </html>

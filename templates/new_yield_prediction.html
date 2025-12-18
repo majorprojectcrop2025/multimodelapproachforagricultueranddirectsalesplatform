@@ -3,158 +3,395 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Yield Prediction</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>New Yield Prediction - AgriTech</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
-            color: #333;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
         }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         .container {
-            max-width: 800px;
-            margin: auto;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px 20px 0 0;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-card h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .header-card h1 i {
+            font-size: 2.5rem;
+        }
+
+        .header-card p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .form-card {
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 0 0 20px 20px;
         }
-        h1 {
-            color: #4CAF50;
-            text-align: center;
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
         }
-        form {
-            text-align: center;
-            margin-top: 20px;
-        }
+
         .form-group {
-            margin-bottom: 15px;
-            text-align: left;
+            margin-bottom: 0;
+            position: relative;
         }
+
         .form-group label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .form-group input[type="text"],
+
+        .form-group label i {
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Colorful icons for different fields */
+        .form-group:nth-child(1) label i { color: #667eea; }
+        .form-group:nth-child(2) label i { color: #f093fb; }
+        .form-group:nth-child(3) label i { color: #4facfe; }
+        .form-group:nth-child(4) label i { color: #43e97b; }
+        .form-group:nth-child(5) label i { color: #fa709a; }
+        .form-group:nth-child(6) label i { color: #30cfd0; }
+        .form-group:nth-child(7) label i { color: #a8edea; }
+        .form-group:nth-child(8) label i { color: #ffecd2; }
+        .form-group:nth-child(9) label i { color: #fcb69f; }
+        .form-group:nth-child(10) label i { color: #ff9a9e; }
+
         .form-group input[type="number"],
         .form-group select {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .form-submit-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
+            padding: 16px 20px;
+            border: 3px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            color: #2c3e50;
+            transition: all 0.3s ease;
             cursor: pointer;
-            font-size: 18px;
-            margin-top: 20px;
         }
-        .form-submit-button:hover {
-            background-color: #45a049;
+
+        .form-group select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23667eea' d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 18px center;
+            background-size: 18px;
+            padding-right: 50px;
         }
-        .prediction-result {
-            margin-top: 30px;
-            border-top: 1px solid #eee;
-            padding-top: 20px;
+
+        .form-group input:hover,
+        .form-group select:hover {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .form-group select option {
+            padding: 12px;
+            background: white;
+            color: #2c3e50;
+        }
+
+        .submit-container {
             text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 3px solid #e0e0e0;
         }
+
+        .form-submit-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 18px 60px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .form-submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+
+        .form-submit-button:active {
+            transform: translateY(-1px);
+        }
+
+        .error-message {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 20px 25px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 6px 20px rgba(238, 90, 111, 0.3);
+        }
+
+        .prediction-result {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 50px;
+            margin-top: 30px;
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+            text-align: center;
+            color: white;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .prediction-result h2 {
-            color: #333;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            opacity: 0.95;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
         }
-        .prediction-result p {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #4CAF50;
+
+        .prediction-result h2 i {
+            font-size: 2rem;
+        }
+
+        .prediction-value {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-top: 15px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 30px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+        }
+
+        .back-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .header-card h1 {
+                font-size: 2rem;
+            }
+
+            .form-card {
+                padding: 25px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .prediction-value {
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>New Yield Prediction</h1>
-        <form action="/new_yield_prediction" method="POST">
+        <div class="header-card">
+            <h1><i class="fas fa-calculator"></i> New Yield Prediction</h1>
+            <p>Enhanced yield prediction system with state-of-the-art algorithms</p>
+        </div>
+
+        <div class="form-card">
             {% if new_yield_error %}
-                <p style="color: red; font-weight: bold;">{{ new_yield_error }}</p>
+                <div class="error-message">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>{{ new_yield_error }}</span>
+                </div>
             {% endif %}
 
-            <div class="form-group">
-                <label for="state_name">State Name:</label>
-                <select id="state_name" name="state_name" required>
-                    {% for option in new_categorical_options.State_Name %}
-                    <option value="{{ option }}">{{ option }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+            <form action="/new_yield_prediction" method="POST">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="state_name"><i class="fas fa-map-marker-alt"></i> State Name</label>
+                        <select id="state_name" name="state_name" required>
+                            {% for option in new_categorical_options.State_Name %}
+                            <option value="{{ option }}">{{ option.title() }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
-            <div class="form-group">
-                <label for="N">Nitrogen (N):</label>
-                <input type="number" step="any" id="N" name="N" required>
-            </div>
+                    <div class="form-group">
+                        <label for="N"><i class="fas fa-flask"></i> Nitrogen (N)</label>
+                        <input type="number" step="any" id="N" name="N" required placeholder="Enter nitrogen content">
+                    </div>
 
-            <div class="form-group">
-                <label for="P">Phosphorus (P):</label>
-                <input type="number" step="any" id="P" name="P" required>
-            </div>
+                    <div class="form-group">
+                        <label for="P"><i class="fas fa-atom"></i> Phosphorus (P)</label>
+                        <input type="number" step="any" id="P" name="P" required placeholder="Enter phosphorus content">
+                    </div>
 
-            <div class="form-group">
-                <label for="K">Potassium (K):</label>
-                <input type="number" step="any" id="K" name="K" required>
-            </div>
+                    <div class="form-group">
+                        <label for="K"><i class="fas fa-leaf"></i> Potassium (K)</label>
+                        <input type="number" step="any" id="K" name="K" required placeholder="Enter potassium content">
+                    </div>
 
-            <div class="form-group">
-                <label for="pH">pH Value:</label>
-                <input type="number" step="any" id="pH" name="pH" required>
-            </div>
+                    <div class="form-group">
+                        <label for="pH"><i class="fas fa-vial"></i> pH Value</label>
+                        <input type="number" step="any" id="pH" name="pH" required placeholder="Enter pH value (0-14)">
+                    </div>
 
-            <div class="form-group">
-                <label for="rainfall">Rainfall (mm):</label>
-                <input type="number" step="any" id="rainfall" name="rainfall" required>
-            </div>
+                    <div class="form-group">
+                        <label for="rainfall"><i class="fas fa-cloud-rain"></i> Rainfall (mm)</label>
+                        <input type="number" step="any" id="rainfall" name="rainfall" required placeholder="Enter rainfall">
+                    </div>
 
-            <div class="form-group">
-                <label for="temperature">Temperature (°C):</label>
-                <input type="number" step="any" id="temperature" name="temperature" required>
-            </div>
+                    <div class="form-group">
+                        <label for="temperature"><i class="fas fa-thermometer-half"></i> Temperature (°C)</label>
+                        <input type="number" step="any" id="temperature" name="temperature" required placeholder="Enter temperature">
+                    </div>
 
-            <div class="form-group">
-                <label for="are-in_hectares">Area (in hectares):</label>
-                <input type="number" step="any" id="are-in_hectares" name="are-in_hectares" required>
-            </div>
+                    <div class="form-group">
+                        <label for="are-in_hectares"><i class="fas fa-ruler-combined"></i> Area (in hectares)</label>
+                        <input type="number" step="any" id="are-in_hectares" name="are-in_hectares" required placeholder="Enter area">
+                    </div>
 
-            <div class="form-group">
-                <label for="crop_type">Crop Type:</label>
-                <select id="crop_type" name="crop_type" required>
-                    {% for option in new_categorical_options.Crop_Type %}
-                    <option value="{{ option }}">{{ option }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+                    <div class="form-group">
+                        <label for="crop_type"><i class="fas fa-calendar-alt"></i> Crop Type</label>
+                        <select id="crop_type" name="crop_type" required>
+                            {% for option in new_categorical_options.Crop_Type %}
+                            <option value="{{ option }}">{{ option.title() }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
-            <div class="form-group">
-                <label for="crop">Crop:</label>
-                <select id="crop" name="crop" required>
-                    {% for option in new_categorical_options.Crop %}
-                    <option value="{{ option }}">{{ option }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+                    <div class="form-group">
+                        <label for="crop"><i class="fas fa-seedling"></i> Crop</label>
+                        <select id="crop" name="crop" required>
+                            {% for option in new_categorical_options.Crop %}
+                            <option value="{{ option }}">{{ option.title() }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
 
-            <button type="submit" class="form-submit-button">Predict Yield</button>
-        </form>
+                <div class="submit-container">
+                    <button type="submit" class="form-submit-button">
+                        <i class="fas fa-chart-line"></i> Predict Yield
+                    </button>
+                </div>
+            </form>
+        </div>
 
         {% if new_yield_predictions is not none and not new_yield_error %}
             <div class="prediction-result">
-                <h2>Predicted Yield:</h2>
-                <p>{{ new_yield_predictions | round(2) }} tons</p>
+                <h2><i class="fas fa-trophy"></i> Predicted Yield</h2>
+                <div class="prediction-value">{{ new_yield_predictions | round(2) }} tons</div>
             </div>
         {% endif %}
+
+        <a href="/" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
     </div>
 </body>
 </html>
-
