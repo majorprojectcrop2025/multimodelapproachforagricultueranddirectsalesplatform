@@ -81,3 +81,75 @@ AgriConnect is a comprehensive Flask web application designed to empower farmers
         The application will typically run on `http://127.0.0.1:5000/`. A web browser should automatically open to this URL.
 
 ## Project Structure
+
+.
+├── app.py                      # Main Flask application logic
+├── requirements.txt            # Python dependencies
+├── schema.sql                  # Database schema for SQLite
+├── site.db                     # SQLite database file (generated on init)
+├── datavcfarm/
+│   └── vcfarm_disease_info.csv # Disease information dataset
+├── direct sales data/
+│   ├── consumersrequestdata/
+│   │   ├── ConsumerCropRequestDataset.csv
+│   │   └── FarmerDataset.csv
+│   ├── farmerstoapartment/
+│   │   ├── ApartmentCropDemand.csv
+│   │   └── FarmerToApartmentDataset.csv
+│   └── farmersyoconsemers/
+│       ├── Consumer_Request_Dataset_50.csv
+│       └── Farmer_to_Consumer_Karnataka_50.csv
+├── models/                     # General plant disease detection models
+│   └── plantdiseasemodel/
+│       ├── densenet_plant_disease_classifier.pth
+│       ├── efficientnet_plant_disease_model.pth
+│       ├── mobilenet_v2_plant_diseases.pth
+│       └── resnet50_plant_disease_detector.pth
+├── newyeildprediction/         # New crop yield prediction models
+│   ├── label_encoders.pkl
+│   └── production_rf_model.pkl
+├── olderyeildpredicton/        # Older crop yield prediction models
+│   ├── cluster_mean_yield (1).pkl
+│   ├── kmeans_model (1).pkl
+│   ├── knn_model (1).pkl
+│   ├── label_encoders (1).pkl
+│   ├── scaler (1).pkl
+│   └── xgb_model (1).pkl
+├── pakacropdiseases/           # Crop-specific disease detection models
+│   ├── cucumber/
+│   │   └── resnet50_cucumber_disease.pth
+│   ├── lemon/
+│   │   └── mobilenet_lemon_disease_model.pth
+│   ├── potato/
+│   │   └── resnet50_potato_disease_classifier.pth
+│   ├── rice/
+│   │   └── resnet50_rice_leaf_disease.pth
+│   └── tomato/
+│       └── resnet50_tomato_leaf_diseases.pth
+├── static/                     # Static files (CSS, JS, images)
+│   ├── preset_disease_images/  # Pre-stored images for disease display
+│   └── uploads/                # Uploaded images for disease detection
+│       └── ...                 # Subdirectories for specific crop uploads
+└── templates/                  # HTML templates
+    ├── agri_chatbot.html
+    ├── consumer_dashboard.html
+    ├── consumer_login.html
+    ├── consumer_to_farmers.html
+    ├── cucumber_disease.html
+    ├── direct_sales_platform.html
+    ├── disease_description.html
+    ├── disease_detection.html
+    ├── elearning.html
+    ├── farmer_dashboard.html
+    ├── farmer_login.html
+    ├── farmer_to_consumers.html
+    ├── farmers_to_apartments.html
+    ├── karnataka_yield_prediction.html
+    ├── lemon_disease.html
+    ├── main.html
+    ├── new_yield_prediction.html
+    ├── particular_disease_detection.html
+    ├── potato_disease.html
+    ├── rice_disease.html
+    ├── tomato_disease.html
+    └── yield_prediction.html
