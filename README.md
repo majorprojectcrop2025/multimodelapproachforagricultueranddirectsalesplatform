@@ -1,67 +1,83 @@
-# Multi-Model Approach for Agriculture and Direct Sales Platform
+# AgriConnect: An Agricultural Platform
 
-A research / prototype project that combines multiple machine learning models and a direct-sales platform to help farmers predict crop outcomes, optimize input usage, and connect directly with buyers.
+AgriConnect is a comprehensive Flask web application designed to empower farmers and connect them directly with consumers and apartment complexes. It integrates various machine learning models and data-driven features to provide solutions for plant disease detection, crop yield prediction, direct sales, and agricultural education.
 
-## Key Features
+## Features
 
-- Crop yield prediction using historical data and environmental inputs
-- Disease/pest detection from images using computer vision models
-- Weather and irrigation recommendations
-- Inventory and direct-sales marketplace for farmers to list and sell produce
-- Dashboard for analytics and model explainability
+### 1. Plant Disease Detection
+*   **Ensemble Modeling:** Utilizes an ensemble of deep learning models (ResNet50, DenseNet121, EfficientNetB3, MobileNetV3) for robust disease identification in various crops.
+*   **Crop-Specific Detection:** Dedicated models for lemon, potato, rice, tomato, and cucumber diseases, offering tailored analysis.
+*   **Confidence-Based Filtering:** Employs soft and hard voting mechanisms to improve prediction accuracy and filter out irrelevant images.
+*   **Disease Information:** Provides detailed descriptions, possible steps for treatment, and image references for identified diseases.
 
-## Tech Stack (examples)
+### 2. Crop Yield Prediction
+*   **Generalized Yield Prediction:** A "new" model based on RandomForestRegressor for broad crop yield forecasting.
+*   **Ensemble Yield Prediction:** An "older" ensemble model combining K-Nearest Neighbors, XGBoost, and K-Means clustering for enhanced prediction accuracy.
+*   **Karnataka-Specific Yield Prediction:** A specialized model trained for precise yield predictions in the Karnataka region, considering local factors.
 
-- Python, TensorFlow / PyTorch, scikit-learn
-- FastAPI / Flask (backend)
-- React / Next.js (frontend)
-- PostgreSQL (database)
-- Docker for containerization
+### 3. Direct Sales Platform
+*   **Farmer-to-Consumer Matching:** Facilitates direct connections between farmers and consumers based on crop offers and requests.
+*   **Farmer-to-Apartment Matching:** Connects farmers with apartment complexes to fulfill bulk crop demands.
+*   **Consumer-to-Farmer Matching:** Allows consumers to search for farmers offering specific crops they need.
 
-## Setup (local)
+### 4. Agri Chatbot
+*   **AI-Powered Assistant:** Integrates a Gemini-powered chatbot to provide accurate and concise answers on farming practices, crop diseases, weather planning, and rural business.
+*   **API Key Management:** Includes robust handling for Gemini API key configuration and error reporting.
 
-1. Clone the repository:
+### 5. E-Learning Portal
+*   **Educational Resources:** Offers a curated collection of e-learning videos, categorized by topics such as by-product making, documentation/registration, startup/marketing guidance, and government schemes/loans. (Content primarily in Kannada and farmer-friendly).
 
-   git clone https://github.com/majorprojectcrop2025/multimodelapproachforagricultueranddirectsalesplatform.git
-   cd multimodelapproachforagricultueranddirectsalesplatform
+### 6. User Management
+*   **Farmer and Consumer Accounts:** Supports separate login and registration for farmers and consumers.
+*   **Personalized Dashboards:** Provides dedicated dashboards for both user types.
 
-2. Create and activate a virtual environment:
+## Technologies Used
 
-   python -m venv .venv
-   source .venv/bin/activate  # macOS/Linux
-   .venv\Scripts\activate    # Windows
+*   **Backend:** Flask (Python)
+*   **Machine Learning:** PyTorch, scikit-learn, XGBoost
+*   **Data Handling:** Pandas, SQLite3
+*   **Frontend:** HTML, CSS, JavaScript (via Jinja2 templates)
+*   **AI Chatbot:** Google Gemini API
+*   **Other Libraries:** Pillow, Werkzeug
 
-3. Install Python dependencies (example):
+## Installation and Setup
 
-   pip install -r requirements.txt
+### Prerequisites
 
-4. Configure environment variables by copying the example env file and editing values:
+*   Python 3.8+
+*   pip (Python package installer)
 
-   cp .env.example .env
-   # Edit .env to set DB credentials, secret keys, etc.
+### Steps
 
-5. Run database migrations (if applicable) and start the backend and frontend services.
+1.  **Clone the Repository:**
+    git clone https://github.com/your-username/AgriConnect.git
+    cd AgriConnect
+    2.  **Create a Virtual Environment (Recommended):**
+    python -m venv venv
+    # On Windows
+    .\venv\Scripts\activate
+    # On macOS/Linux
+    source venv/bin/activate
+    3.  **Install Dependencies:**
+    
+    pip install -r requirements.txt
+    4.  **Set Up Gemini API Key (for Chatbot functionality):**
+    *   Obtain a Gemini API key from [Google AI Studio](https://ai.google.dev/).
+    *   Set the API key as an environment variable:
+        # On Windows
+        $env:GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY'
+        # On macOS/Linux
+        export GEMINI_API_KEY='YOUR_GEMINI_API_KEY'
+            *   (Optional) You can also specify a different Gemini model:
+        # On Windows
+        $env:GEMINI_MODEL_NAME = 'gemini-1.5-flash'
+        # On macOS/Linux
+        export GEMINI_MODEL_NAME='gemini-1.5-flash'
+        5.  **Initialize the Database:**
+    # This will create the site.db file and tables
+    python -c "from app import init_db; init_db()"
+    6.  **Run the Application:**
+    python app.py
+        The application will typically run on `http://127.0.0.1:5000/`. A web browser should automatically open to this URL.
 
-## Usage
-
-- Start the backend API (example):
-
-  uvicorn app.main:app --reload
-
-- Start the frontend (example):
-
-  cd frontend
-  npm install
-  npm run dev
-
-## Contributing
-
-Contributions are welcome. Please open issues for bugs or feature requests and submit pull requests for changes.
-
-## License
-
-Specify a license for the project (e.g., MIT). Replace this section with the correct license.
-
-## Notes
-
-- Update the README with repository-specific setup and usage instructions, model training scripts, dataset sources, and any required credentials.
+## Project Structure
